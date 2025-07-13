@@ -1,19 +1,22 @@
-import SystemController from './controllers/SystemController'
-import TrackRequestValidator from './validators/TrackRequestValidator'
-import ValidationErrorMiddleware from './middlewares/ValidationErrorMiddleware'
-import MalformedDataMiddleware from './middlewares/MalformedDataMiddleware'
-import RequestIdMiddleware from './middlewares/RequestIdMiddleware'
-import GenericErrorMiddleware from './middlewares/GenericErrorMiddleware'
-import TrackingEvent from './models/TrackingEvent'
-import TrackingEventRepository from './repositories/TrackingEventRepository'
-import TrackingEventService from './services/TrackingEventService'
-import TrackingController from './controllers/TrackingController'
-import AnalyticsEvent from './models/AnalyticsEvent'
-import AnalyticsEventRepository from './repositories/AnalyticsEventRepository'
-import AnalyticsEventService from './services/AnalyticsEventService'
-import AnalyticsController from './controllers/AnalyticsController'
+import SystemController from '../controllers/SystemController'
+import TrackRequestValidator from '../validators/TrackRequestValidator'
+import ValidationErrorMiddleware from '../middlewares/ValidationErrorMiddleware'
+import MalformedDataMiddleware from '../middlewares/MalformedDataMiddleware'
+import RequestIdMiddleware from '../middlewares/RequestIdMiddleware'
+import GenericErrorMiddleware from '../middlewares/GenericErrorMiddleware'
+import TrackingEvent from '../models/TrackingEvent'
+import TrackingEventRepository from '../repositories/TrackingEventRepository'
+import TrackingEventService from '../services/TrackingEventService'
+import TrackingController from '../controllers/TrackingController'
+import AnalyticsEvent from '../models/AnalyticsEvent'
+import AnalyticsEventRepository from '../repositories/AnalyticsEventRepository'
+import AnalyticsEventService from '../services/AnalyticsEventService'
+import AnalyticsController from '../controllers/AnalyticsController'
 
-// IoC Container to hold all the dependencies
+/**
+ * Dependency Injection Container.
+ * @class Container
+ */
 class Container {
     public systemController: SystemController = new SystemController()
     public trackRequestValidator: TrackRequestValidator = new TrackRequestValidator()

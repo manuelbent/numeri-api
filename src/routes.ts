@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, Router } from 'express'
-import ioc from './ioc'
+import ioc from './config/ioc'
 
 const router = Router()
 

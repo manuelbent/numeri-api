@@ -33,6 +33,7 @@
     "module-alias": "^2.2.3",
     "node-cron": "^4.2.0",
     "pino": "^9.7.0",
+    "redis": "^5.6.0",
     "sequelize": "^6.37.7",
     "sqlite3": "^5.1.7",
     "zod": "^3.25.67"
@@ -41,6 +42,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.3",
+    "@types/redis": "^4.0.10",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"

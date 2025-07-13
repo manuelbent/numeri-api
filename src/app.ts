@@ -1,7 +1,8 @@
 import express from 'express'
 import cors from 'cors'
 
-import ioc from './ioc'
+import './config/redis'
+import ioc from './config/ioc'
 import routes from './routes'
 
 const app = express()
