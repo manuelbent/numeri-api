@@ -6,7 +6,7 @@ const logger = pino({
     transport: process.env.ENV === 'dev' ? undefined : {
         target: 'pino/file',
         options: {
-            destination: './app.log'
+            destination: '../app.log'
         }
     }
 })

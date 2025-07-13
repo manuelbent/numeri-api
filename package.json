@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/src/server.js",
-    "dev": "npm run build && npm start"
+    "dev": "npm run build && npm start",
+    "migrate:up": "npx sequelize-cli db:migrate --config database/config.json --migrations-path database/migrations",
+    "migrate:down": "npx sequelize-cli db:migrate:undo --config database/config.json --migrations-path database/migrations"
   },
   "repository": {
     "type": "git",

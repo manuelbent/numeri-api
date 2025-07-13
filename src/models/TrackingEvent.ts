@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize'
-import sequelize from '../../../database/sequelize'
+import sequelize from '../../database/sequelize'
 
 interface Payload {
     readonly $ip?: string

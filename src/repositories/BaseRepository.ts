@@ -1,5 +1,5 @@
 import { Op, Attributes, CreationAttributes, Identifier, Model, ModelStatic, WhereAttributeHashValue, } from 'sequelize'
-import RepositoryInterface from '../../interfaces/RepositoryInterface'
+import RepositoryInterface from '../interfaces/RepositoryInterface'
 
 /**
  * Base repository class that implements common CRUD operations for Sequelize models.
