@@ -1,0 +1,46 @@
+{
+  "name": "numeri",
+  "version": "0.0.0",
+  "description": "API layer for numeri.",
+  "main": "dist/src/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/server.js",
+    "dev": "npm run build && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/manuelbent/numeri.git"
+  },
+  "keywords": [
+    "lite",
+    "analytics"
+  ],
+  "author": "manuelbent",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manuelbent/numeri/issues"
+  },
+  "homepage": "https://github.com/manuelbent/numeri#readme",
+  "dependencies": {
+    "@types/sequelize": "^4.28.20",
+    "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "module-alias": "^2.2.3",
+    "node-cron": "^4.2.0",
+    "pino": "^9.7.0",
+    "sequelize": "^6.37.7",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.3",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.3"
+  }
+}
