@@ -16,11 +16,11 @@ module.exports = {
             },
             name: {
                 type: Sequelize.STRING(255),
-                allowNull: true
+                allowNull: false
             },
             owner_email: {
                 type: Sequelize.STRING(255),
-                allowNull: true
+                allowNull: false
             },
             allowed_origins: {
                 type: Sequelize.JSON,

@@ -24,4 +24,13 @@ export default class ClientService implements ClientServiceInterface {
             ...payload,
         })
     }
+
+    /**
+     * Retrieves clients based on the provided query.
+     * @param {object} query
+     * @returns {Promise<Client[]>}
+     */
+    async getBy(query: object): Promise<Client[]> {
+        return this.repository.find({ ...query })
+    }
 }

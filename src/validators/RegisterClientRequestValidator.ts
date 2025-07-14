@@ -1,17 +1,26 @@
 import { Request, Response, NextFunction } from 'express'
 import { z } from 'zod'
 import BaseRequestValidator from './BaseRequestValidator'
+import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**
  * @class RegisterClientRequestValidator
  */
 export default class RegisterClientRequestValidator extends BaseRequestValidator {
     /**
+     * @constructor
+     * @param {ClientServiceInterface} clientService
+     */
+    constructor(private clientService: ClientServiceInterface) {
+        super()
+    }
+
+    /**
      * @private {ZodObject}
      */
     schema = z.object({
-        name: z.string().optional(),
-        ownerEmail: z.string().email().optional(),
+        name: z.string(),
+        ownerEmail: z.string().email(),
         allowedOrigins: z.array(z.string()),
     }).strict()
 
@@ -20,7 +29,7 @@ export default class RegisterClientRequestValidator extends BaseRequestValidator
      * @param {Response} res
      * @param {NextFunction} next
      */
-    validate(req: Request, res: Response, next: NextFunction) {
+    async validate(req: Request, res: Response, next: NextFunction) {
         const bearer = req.headers['authorization']?.split(' ')[1]
         if (!bearer) {
             return res.status(401).json({ message: 'Unauthorized' })
@@ -30,6 +39,14 @@ export default class RegisterClientRequestValidator extends BaseRequestValidator
             return res.status(403).json({ message: 'Forbidden' })
         }
 
-        super.validate(req, res, next)
+        // validate the request body
+        this.schema.parse(req.body)
+
+        const client = await this.clientService.getBy({ name: req.body.name, ownerEmail: req.body.ownerEmail })
+        if (client.length) {
+            return res.status(409).json({ message: 'Client already exists' })
+        }
+
+        next()
     }
 }

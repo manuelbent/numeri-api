@@ -19,7 +19,7 @@ export default class AnalyticsController {
      * @returns {Promise<void>}
      */
     async get({ query }: Request, res: Response): Promise<void> {
-        const analyticsEvents = await this.analyticsEventService.load(query)
+        const analyticsEvents = await this.analyticsEventService.getBy(query)
         res.status(200).json(analyticsEvents)
     }
 }

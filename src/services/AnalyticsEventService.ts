@@ -9,7 +9,7 @@ export default class AnalyticsEventService implements AnalyticsEventServiceInter
         return this.repository.create({ ...data })
     }
 
-    async load(query: object): Promise<AnalyticsEvent[]> {
+    async getBy(query: object): Promise<AnalyticsEvent[]> {
         return this.repository.find({ ...query })
     }
 }

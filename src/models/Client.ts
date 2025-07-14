@@ -41,11 +41,11 @@ Client.init({
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
     },
     ownerEmail: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         field: 'owner_email',
     },
     allowedOrigins: {

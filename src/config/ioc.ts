@@ -38,7 +38,7 @@ class Container {
     private clientRepository: ClientRepository = new ClientRepository(Client)
     public clientService: ClientService = new ClientService(this.clientRepository)
     public clientController: ClientController = new ClientController(this.clientService)
-    public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator()
+    public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator(this.clientService)
 }
 
 export default new Container()
