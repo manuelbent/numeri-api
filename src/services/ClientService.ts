@@ -1,3 +1,4 @@
+import crypto from 'crypto'
 import RepositoryInterface from '../interfaces/RepositoryInterface'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 import Client from '../models/Client'
@@ -11,4 +12,29 @@ export default class ClientService implements ClientServiceInterface {
      * @param {RepositoryInterface} repository
      */
     constructor(private repository: RepositoryInterface<Client>) {}
+
+    /**
+     * Hashes the client secret using SHA-256.
+     * @param {string} secret
+     * @returns {string}
+     */
+    private hash(secret: string): string {
+        return crypto.createHash('sha256').update(secret).digest('hex')
+    }
+
+    /**
+     * Registers a new client.
+     * The returned client object contains the created client and the plain secret.
+     * @param {object} payload
+     * @returns {Promise<[Client|string]>}
+     */
+    async register(payload: object): Promise<[Client, string]> {
+        const secret = crypto.randomBytes(32).toString('hex')
+        const client = await this.repository.create({
+            clientId: crypto.randomUUID(),
+            clientSecretHash: this.hash(secret),
+            ...payload,
+        })
+        return [client, secret]
+    }
 }

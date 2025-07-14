@@ -10,7 +10,7 @@ import sequelize from '../../database/sequelize'
  * @property {string} clientSecretHash The hashed client secret.
  * @property {string} name The name of the client.
  * @property {string} ownerEmail The email of the client owner.
- * @property {string[]} allowedOrigins The list of allowed origins for the client.
+ * @property {object} allowedOrigins The list of allowed origins for the client.
  * @property {Date} createdAt The date when the client was created.
  * @property {Date} lastUsedAt The date when the client was last used.
  * @property {boolean} isRevoked Indicates if the client is revoked.
@@ -22,7 +22,7 @@ export default class Client extends Model {
     public clientSecretHash!: string
     public name: string|undefined
     public ownerEmail: string|undefined
-    public allowedOrigins!: string[]
+    public allowedOrigins!: object
     public createdAt!: Date
     public lastUsedAt: Date|undefined
     public isRevoked!: boolean
@@ -48,16 +48,16 @@ Client.init({
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     ownerEmail: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         field: 'owner_email',
     },
     allowedOrigins: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: true,
+        type: DataTypes.JSON,
+        allowNull: false,
         field: 'allowed_origins',
     },
     createdAt: {
@@ -84,8 +84,8 @@ Client.init({
     }
 }, {
     sequelize,
-    modelName: 'AnalyticsEvent',
-    tableName: 'analytics_events',
+    modelName: 'Client',
+    tableName: 'clients',
     timestamps: false,
     indexes: [
         {

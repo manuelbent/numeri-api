@@ -27,7 +27,7 @@ module.exports = {
                 allowNull: true
             },
             allowed_origins: {
-                type: Sequelize.ARRAY(Sequelize.TEXT),
+                type: Sequelize.JSON,
                 allowNull: true
             },
             created_at: {
@@ -39,7 +39,7 @@ module.exports = {
                 type: Sequelize.DATE,
                 allowNull: true
             },
-            revoked: {
+            is_revoked: {
                 type: Sequelize.BOOLEAN,
                 allowNull: false,
                 defaultValue: false

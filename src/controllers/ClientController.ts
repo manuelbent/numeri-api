@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
+import logger from '../utils/logger'
 
 /**
  * Handles requests related to analytics events.
@@ -8,9 +9,9 @@ import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 export default class ClientController {
     /**
      * @constructor
-     * @param {ClientServiceInterface} clientServiceInterface
+     * @param {ClientServiceInterface} clientService
      */
-    constructor(private clientServiceInterface: ClientServiceInterface) {}
+    constructor(private clientService: ClientServiceInterface) {}
 
     /**
      * Retrieves analytics events.
@@ -19,6 +20,8 @@ export default class ClientController {
      * @returns {Promise<void>}
      */
     async register(req: Request, res: Response): Promise<void> {
-        res.send('register')
+        const [{ clientId }, secret] = await this.clientService.register(req.body)
+        logger.info(`Client registered with ID: ${clientId}`)
+        res.status(200).json({ clientId, secret })
     }
 }
