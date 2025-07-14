@@ -6,16 +6,11 @@ import BaseRequestValidator from './BaseRequestValidator'
  */
 export default class TrackRequestValidator extends BaseRequestValidator {
     /**
-     * @private {string[]}
-     */
-    readonlyFields = []
-
-    /**
      * @private {ZodObject}
      */
     schema = z.object({
         event: z.string(),
         properties: z.object({}).passthrough(),
         timestamp: z.string().datetime({ offset: true }).optional(),
-    })
+    }).strict()
 }
