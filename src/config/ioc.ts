@@ -24,7 +24,6 @@ import RegisterClientRequestValidator from '../validators/RegisterClientRequestV
  */
 class Container {
     public systemController: SystemController = new SystemController()
-    public trackRequestValidator: TrackRequestValidator = new TrackRequestValidator()
     public validationErrorMiddleware: ValidationErrorMiddleware = new ValidationErrorMiddleware()
     public malformedDataMiddleware: MalformedDataMiddleware = new MalformedDataMiddleware()
     public requestIdMiddleware: RequestIdMiddleware = new RequestIdMiddleware()
@@ -38,6 +37,7 @@ class Container {
     private clientRepository: ClientRepository = new ClientRepository(Client)
     public clientService: ClientService = new ClientService(this.clientRepository)
     public clientController: ClientController = new ClientController(this.clientService)
+    public trackRequestValidator: TrackRequestValidator = new TrackRequestValidator(this.clientService)
     public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator(this.clientService)
 }
 

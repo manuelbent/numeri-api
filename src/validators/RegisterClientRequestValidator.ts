@@ -8,14 +8,6 @@ import ClientServiceInterface from '../interfaces/ClientServiceInterface'
  */
 export default class RegisterClientRequestValidator extends BaseRequestValidator {
     /**
-     * @constructor
-     * @param {ClientServiceInterface} clientService
-     */
-    constructor(private clientService: ClientServiceInterface) {
-        super()
-    }
-
-    /**
      * @private {ZodObject}
      */
     schema = z.object({
@@ -23,6 +15,14 @@ export default class RegisterClientRequestValidator extends BaseRequestValidator
         ownerEmail: z.string().email(),
         allowedOrigins: z.array(z.string()),
     }).strict()
+
+    /**
+     * @constructor
+     * @param {ClientServiceInterface} clientService
+     */
+    constructor(private clientService: ClientServiceInterface) {
+        super()
+    }
 
     /**
      * @param {Request} req
