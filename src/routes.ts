@@ -8,7 +8,8 @@ router.get('/', ioc.systemController.home)
 
 // clients routes
 router.post('/clients/register',
-    (req: Request, res: Response, next: NextFunction) => ioc.clientController.register(req, res)
+    (req: Request, res: Response, next: NextFunction) => ioc.registerClientRequestValidator.validate(req, res, next),
+    (req: Request, res: Response) => ioc.clientController.register(req, res)
 )
 
 // tracking events routes

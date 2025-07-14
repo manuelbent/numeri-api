@@ -16,6 +16,7 @@ import Client from '../models/Client'
 import ClientRepository from '../repositories/ClientRepository'
 import ClientService from '../services/ClientService'
 import ClientController from '../controllers/ClientController'
+import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'
 
 /**
  * Dependency Injection Container.
@@ -37,6 +38,7 @@ class Container {
     private clientRepository: ClientRepository = new ClientRepository(Client)
     public clientService: ClientService = new ClientService(this.clientRepository)
     public clientController: ClientController = new ClientController(this.clientService)
+    public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator()
 }
 
 export default new Container()
