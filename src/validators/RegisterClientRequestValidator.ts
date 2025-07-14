@@ -15,10 +15,15 @@ export default class RegisterClientRequestValidator extends BaseRequestValidator
         allowedOrigins: z.array(z.string()),
     }).strict()
 
+    /**
+     * @param {Request} req
+     * @param {Response} res
+     * @param {NextFunction} next
+     */
     validate(req: Request, res: Response, next: NextFunction) {
         const bearer = req.headers['authorization']?.split(' ')[1]
         if (!bearer) {
-            return res.status(401).json({ message: 'Missing Authorization header' })
+            return res.status(401).json({ message: 'Unauthorized' })
         }
 
         if (bearer !== process.env.ADMIN_BEARER) {
