@@ -28,7 +28,7 @@ export default class TrackingEvent extends Model {
     public payload!: Payload
     public status!: 'pending'|'processing'|'processed'|'failed'
     public retries!: number
-    public errorMessage!: string|null
+    public errorMessage: string|undefined
     public processedAt!: Date
     public createdAt!: Date
 }

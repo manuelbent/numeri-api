@@ -19,9 +19,9 @@ export default class AnalyticsEvent extends Model {
     public trackingEventId!: number
     public eventType!: string
     public site!: string
-    public geolocation!: Geolocation|undefined
-    public countryCode!: string|undefined
-    public timestamp!: Date|undefined
+    public geolocation: Geolocation|undefined
+    public countryCode: string|undefined
+    public timestamp: Date|undefined
     public meta!: object
 }
 

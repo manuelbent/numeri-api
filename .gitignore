@@ -9,4 +9,6 @@ node_modules
 
 # local files
 .env
+dump.rdb
 app.log
+todos
