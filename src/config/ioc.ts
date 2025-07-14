@@ -14,8 +14,8 @@ import AnalyticsEventService from '../services/AnalyticsEventService'
 import AnalyticsController from '../controllers/AnalyticsController'
 import Client from '../models/Client'
 import ClientRepository from '../repositories/ClientRepository'
-import AuthService from '../services/AuthService'
-import AuthController from '../controllers/AuthController'
+import ClientService from '../services/ClientService'
+import ClientController from '../controllers/ClientController'
 
 /**
  * Dependency Injection Container.
@@ -35,8 +35,8 @@ class Container {
     public analyticsEventService: AnalyticsEventService = new AnalyticsEventService(this.analyticsEventRepository)
     public analyticsController: AnalyticsController = new AnalyticsController(this.analyticsEventService)
     private clientRepository: ClientRepository = new ClientRepository(Client)
-    public authService: AuthService = new AuthService(this.clientRepository)
-    public authController: AuthController = new AuthController(this.authService)
+    public clientService: ClientService = new ClientService(this.clientRepository)
+    public clientController: ClientController = new ClientController(this.clientService)
 }
 
 export default new Container()

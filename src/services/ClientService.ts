@@ -1,11 +1,11 @@
 import RepositoryInterface from '../interfaces/RepositoryInterface'
-import AuthServiceInterface from '../interfaces/AuthServiceInterface'
+import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 import Client from '../models/Client'
 
 /**
- * @class AuthService
+ * @class ClientService
  */
-export default class AuthService implements AuthServiceInterface {
+export default class ClientService implements ClientServiceInterface {
     /**
      * @constructor
      * @param {RepositoryInterface} repository

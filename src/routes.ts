@@ -6,9 +6,9 @@ const router = Router()
 // landing route
 router.get('/', ioc.systemController.home)
 
-// auth routes
-router.post('/auth/signup',
-    (req: Request, res: Response, next: NextFunction) => ioc.authController.signup(req, res)
+// clients routes
+router.post('/clients/register',
+    (req: Request, res: Response, next: NextFunction) => ioc.clientController.register(req, res)
 )
 
 // tracking events routes
