@@ -1,7 +1,7 @@
 import Client from '../models/Client'
 
 export default interface ClientServiceInterface {
-    register(payload: object): Promise<Client>
+    register(payload: object): Promise<[Client, string]>
 
     getBy(query: object): Promise<Client[]>
 }

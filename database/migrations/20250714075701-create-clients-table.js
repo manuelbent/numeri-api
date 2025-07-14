@@ -14,6 +14,10 @@ module.exports = {
                 allowNull: false,
                 unique: true
             },
+            client_secret_hash: {
+                type: Sequelize.TEXT,
+                allowNull: false
+            },
             name: {
                 type: Sequelize.STRING(255),
                 allowNull: false

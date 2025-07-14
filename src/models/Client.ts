@@ -7,6 +7,7 @@ import sequelize from '../../database/sequelize'
  * @extends {Model}
  * @property {number} id The unique identifier for the client.
  * @property {string} clientId The unique client ID.
+ * @property {string} clientSecretHash The hashed secret for the client.
  * @property {string} name The name of the client.
  * @property {string} ownerEmail The email of the client owner.
  * @property {object} allowedOrigins The list of allowed origins for the client.
@@ -18,6 +19,7 @@ import sequelize from '../../database/sequelize'
 export default class Client extends Model {
     public id!: number
     public clientId!: string
+    public clientSecretHash!: string
     public name: string|undefined
     public ownerEmail: string|undefined
     public allowedOrigins!: object
@@ -38,6 +40,11 @@ Client.init({
         allowNull: false,
         unique: true,
         field: 'client_id',
+    },
+    clientSecretHash: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        field: 'client_secret_hash',
     },
     name: {
         type: DataTypes.STRING,
