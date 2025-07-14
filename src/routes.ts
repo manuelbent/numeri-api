@@ -6,6 +6,11 @@ const router = Router()
 // landing route
 router.get('/', ioc.systemController.home)
 
+// auth routes
+router.post('/auth/signup',
+    (req: Request, res: Response, next: NextFunction) => ioc.authController.signup(req, res)
+)
+
 // tracking events routes
 router.post('/track',
     (req: Request, res: Response, next: NextFunction) => ioc.trackRequestValidator.validate(req, res, next),

@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import 'module-alias/register'
 
 import app from './app'
 import logger from './utils/logger'
