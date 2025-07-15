@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
 import { LRUCache } from 'lru-cache'
 import { z } from 'zod'
-import BaseRequestValidator from './BaseRequestValidator'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
+import BaseRequestValidator from './BaseRequestValidator'
 import Client from '../models/Client'
 
 /**
