@@ -1,7 +1,7 @@
 import crypto from 'crypto'
+import { Client } from 'numeri-core'
 import RepositoryInterface from '../interfaces/RepositoryInterface'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
-import Client from '../models/Client'
 
 /**
  * @class ClientService

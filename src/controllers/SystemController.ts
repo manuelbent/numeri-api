@@ -1,5 +1,4 @@
 import { Request, Response } from 'express'
-import { version } from '../../package.json'
 
 /**
  * Handles system-related requests.
@@ -14,7 +13,6 @@ export default class SystemController {
     public async home(_: Request, res: Response) {
         res.status(200).json({
             message: 'Welcome to numeri!',
-            version,
         })
     }
 

@@ -1,6 +1,6 @@
+import { TrackingEvent } from 'numeri-core'
 import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
 import RepositoryInterface from '../interfaces/RepositoryInterface'
-import TrackingEvent from '../models/TrackingEvent'
 
 export default class TrackingEventService implements TrackingEventServiceInterface {
     constructor(private repository: RepositoryInterface<TrackingEvent>) {}

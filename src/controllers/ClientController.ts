@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
+import { logger } from 'numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
-import logger from '../utils/logger'
 
 /**
  * Handles requests related to analytics events.

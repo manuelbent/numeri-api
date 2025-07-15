@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express'
 import { LRUCache } from 'lru-cache'
 import { z } from 'zod'
+import { Client } from 'numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 import BaseRequestValidator from './BaseRequestValidator'
-import Client from '../models/Client'
 
 /**
  * @class TrackRequestValidator

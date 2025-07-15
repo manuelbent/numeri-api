@@ -1,19 +1,21 @@
+import {
+    Client,
+    ClientRepository,
+    TrackingEvent,
+    TrackingEventRepository,
+    AnalyticsEvent,
+    AnalyticsEventRepository
+} from 'numeri-core'
 import SystemController from '../controllers/SystemController'
 import TrackRequestValidator from '../validators/TrackRequestValidator'
 import ValidationErrorMiddleware from '../middlewares/ValidationErrorMiddleware'
 import MalformedDataMiddleware from '../middlewares/MalformedDataMiddleware'
 import RequestIdMiddleware from '../middlewares/RequestIdMiddleware'
 import GenericErrorMiddleware from '../middlewares/GenericErrorMiddleware'
-import TrackingEvent from '../models/TrackingEvent'
-import TrackingEventRepository from '../repositories/TrackingEventRepository'
 import TrackingEventService from '../services/TrackingEventService'
 import TrackingController from '../controllers/TrackingController'
-import AnalyticsEvent from '../models/AnalyticsEvent'
-import AnalyticsEventRepository from '../repositories/AnalyticsEventRepository'
 import AnalyticsEventService from '../services/AnalyticsEventService'
 import AnalyticsController from '../controllers/AnalyticsController'
-import Client from '../models/Client'
-import ClientRepository from '../repositories/ClientRepository'
 import ClientService from '../services/ClientService'
 import ClientController from '../controllers/ClientController'
 import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'

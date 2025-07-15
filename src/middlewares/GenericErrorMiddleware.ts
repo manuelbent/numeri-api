@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import crypto from 'node:crypto'
-import logger from '../utils/logger'
+import { logger } from 'numeri-core'
 
 export default class GenericErrorMiddleware {
     handle(err: any, req: Request, res: Response, _: NextFunction) {

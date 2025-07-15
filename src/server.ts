@@ -1,7 +1,8 @@
 import 'dotenv/config'
 
+import { logger } from 'numeri-core'
 import app from './app'
-import logger from './utils/logger'
+
 
 const port = Number(process.env.PORT) || 3000
 

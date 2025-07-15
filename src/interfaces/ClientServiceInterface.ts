@@ -1,4 +1,4 @@
-import Client from '../models/Client'
+import { Client } from 'numeri-core'
 
 export default interface ClientServiceInterface {
     register(payload: object): Promise<[Client, string]>
