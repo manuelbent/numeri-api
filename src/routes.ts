@@ -20,6 +20,7 @@ router.post('/track',
 
 // analytics routes
 router.get('/analytics',
+    // todo: auth middleware
     (req: Request, res: Response) => ioc.analyticsController.get(req, res)
 )
 

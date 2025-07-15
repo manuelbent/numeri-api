@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/manuelbent/numeri.git"
+    "url": "git+ssh://git@github.com/manuelbent/numeri-api.git"
   },
   "keywords": [
     "lite",
@@ -21,9 +21,9 @@
   "author": "manuelbent",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/manuelbent/numeri/issues"
+    "url": "https://github.com/manuelbent/numeri-api/issues"
   },
-  "homepage": "https://github.com/manuelbent/numeri#readme",
+  "homepage": "https://github.com/manuelbent/numeri-api#readme",
   "dependencies": {
     "@types/sequelize": "^4.28.20",
     "axios": "^1.10.0",
