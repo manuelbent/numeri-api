@@ -1,3 +1,4 @@
+// common resources
 import {
     Client,
     ClientRepository,
@@ -6,19 +7,23 @@ import {
     AnalyticsEvent,
     AnalyticsEventRepository
 } from 'numeri-core'
+// controllers
 import SystemController from '../controllers/SystemController'
+import TrackingController from '../controllers/TrackingController'
+import AnalyticsController from '../controllers/AnalyticsController'
+import ClientController from '../controllers/ClientController'
+// services
+import TrackingEventService from '../services/TrackingEventService'
+import AnalyticsEventService from '../services/AnalyticsEventService'
+import ClientService from '../services/ClientService'
+// validators
 import TrackRequestValidator from '../validators/TrackRequestValidator'
+import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'
+// middlewares
+import RequestIdMiddleware from '../middlewares/RequestIdMiddleware'
 import ValidationErrorMiddleware from '../middlewares/ValidationErrorMiddleware'
 import MalformedDataMiddleware from '../middlewares/MalformedDataMiddleware'
-import RequestIdMiddleware from '../middlewares/RequestIdMiddleware'
 import GenericErrorMiddleware from '../middlewares/GenericErrorMiddleware'
-import TrackingEventService from '../services/TrackingEventService'
-import TrackingController from '../controllers/TrackingController'
-import AnalyticsEventService from '../services/AnalyticsEventService'
-import AnalyticsController from '../controllers/AnalyticsController'
-import ClientService from '../services/ClientService'
-import ClientController from '../controllers/ClientController'
-import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'
 
 /**
  * Dependency Injection Container.
