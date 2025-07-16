@@ -7,8 +7,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "npm run build && npm start",
-    "migrate:up": "npx sequelize-cli db:migrate --config ./node_modules/numeri-core/database/config.js --migrations-path ./node_modules/numeri-core/database/migrations",
-    "migrate:down": "npx sequelize-cli db:migrate:undo --config ./node_modules/numeri-core/database/config.js --migrations-path ./node_modules/numeri-core/database/migrations"
+    "migrate:up": "numeri-core migrate:up",
+    "migrate:down": "numeri-core migrate:down"
   },
   "repository": {
     "type": "git",
