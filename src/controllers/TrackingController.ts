@@ -26,8 +26,8 @@ export default class TrackingController {
             $site: req.headers.origin || req.headers.referer || 'unknown-site'
         })
 
-        // publish the tracking event to Redis
-        await RedisClient.publish('tracking-events', JSON.stringify({ id }))
+        // async publish the tracking event to Redis
+        RedisClient.publish('tracking-events', JSON.stringify({ id })).then()
 
         // respond with the tracking event uuid
         res.status(200).json({ uuid, message: 'Event tracked successfully' })
