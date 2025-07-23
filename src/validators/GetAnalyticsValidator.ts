@@ -3,12 +3,11 @@ import { LRUCache } from 'lru-cache'
 import { z } from 'zod'
 import { Client } from 'numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
-import BaseRequestValidator from './BaseRequestValidator'
 
 /**
  * @class GetAnalyticsValidator
  */
-export default class GetAnalyticsValidator extends BaseRequestValidator {
+export default class GetAnalyticsValidator {
     /**
      * @private {ZodObject}
      */
@@ -26,9 +25,7 @@ export default class GetAnalyticsValidator extends BaseRequestValidator {
      * @constructor
      * @param {ClientServiceInterface} clientService
      */
-    constructor(private clientService: ClientServiceInterface) {
-        super()
-    }
+    constructor(private clientService: ClientServiceInterface) {}
 
     /**
      * @param {Request} req
@@ -50,6 +47,10 @@ export default class GetAnalyticsValidator extends BaseRequestValidator {
             this.cache.set(apiKey, client)
         }
 
-        super.validate(req, res, next)
+        (req as Request&{ client: Client }).client = this.cache.get(apiKey)!
+
+        this.schema.parse(req.query)
+
+        next()
     }
 }

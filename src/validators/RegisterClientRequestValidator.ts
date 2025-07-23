@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 import { z } from 'zod'
-import BaseRequestValidator from './BaseRequestValidator'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**
  * @class RegisterClientRequestValidator
  */
-export default class RegisterClientRequestValidator extends BaseRequestValidator {
+export default class RegisterClientRequestValidator {
     /**
      * @private {ZodObject}
      */
@@ -20,9 +19,7 @@ export default class RegisterClientRequestValidator extends BaseRequestValidator
      * @constructor
      * @param {ClientServiceInterface} clientService
      */
-    constructor(private clientService: ClientServiceInterface) {
-        super()
-    }
+    constructor(private clientService: ClientServiceInterface) {}
 
     /**
      * @param {Request} req

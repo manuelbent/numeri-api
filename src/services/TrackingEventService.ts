@@ -13,11 +13,11 @@ export default class TrackingEventService implements TrackingEventServiceInterfa
 
     /**
      * Enqueues a new tracking event.
-     * @param {object} payload - The payload of the tracking event.
-     * @returns {Promise<TrackingEvent>} - The created tracking event.
+     * @param {object} data
+     * @returns {Promise<TrackingEvent>}
      */
-    async enqueue(payload: object): Promise<TrackingEvent> {
-        return this.repository.create({ payload })
+    async enqueue(data: object): Promise<TrackingEvent> {
+        return this.repository.create(data)
     }
 
     /**

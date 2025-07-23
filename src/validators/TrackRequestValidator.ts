@@ -3,12 +3,11 @@ import { LRUCache } from 'lru-cache'
 import { z } from 'zod'
 import { Client } from 'numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
-import BaseRequestValidator from './BaseRequestValidator'
 
 /**
  * @class TrackRequestValidator
  */
-export default class TrackRequestValidator extends BaseRequestValidator {
+export default class TrackRequestValidator {
     /**
      * @private {ZodObject}
      */
@@ -27,9 +26,7 @@ export default class TrackRequestValidator extends BaseRequestValidator {
      * @constructor
      * @param {ClientServiceInterface} clientService
      */
-    constructor(private clientService: ClientServiceInterface) {
-        super()
-    }
+    constructor(private clientService: ClientServiceInterface) {}
 
     /**
      * @param {Request} req
@@ -61,6 +58,12 @@ export default class TrackRequestValidator extends BaseRequestValidator {
             return res.status(403).json({ error: 'Origin not allowed' })
         }
 
-        super.validate(req, res, next)
+        {
+            this.schema.parse(req.body)
+        }
+
+        (req as Request&{ client: Client }).client = client
+
+        next()
     }
 }

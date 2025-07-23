@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
 import { client as RedisClient } from '../config/redis'
+import { Client } from 'numeri-core'
 
 /**
  * Ingests tracking events and publishes them to Redis for further processing.
@@ -21,9 +22,12 @@ export default class TrackingController {
     public async track(req: Request, res: Response): Promise<void> {
         // build the tracking event and enqueue it for processing
         const { id, uuid } = await this.trackingEventService.enqueue({
-            ...req.body,
-            $ip: req.ip || req.headers['x-forwarded-for'],
-            $site: req.headers.origin || req.headers.referer || 'unknown-site'
+            clientId: (req as Request&{ client: Client }).client.id,
+            payload: {
+                ...req.body,
+                $ip: req.ip || req.headers['x-forwarded-for'],
+                $site: req.headers.origin || req.headers.referer || 'unknown-site'
+            }
         })
 
         // publish the tracking event to Redis
