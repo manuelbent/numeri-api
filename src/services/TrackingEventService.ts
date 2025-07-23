@@ -1,4 +1,4 @@
-import { TrackingEvent, RepositoryInterface } from 'numeri-core'
+import { TrackingEvent, TrackingEventRepositoryInterface } from 'numeri-core'
 import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
 
 /**
@@ -7,9 +7,9 @@ import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInt
 export default class TrackingEventService implements TrackingEventServiceInterface {
     /**
      * @constructor
-     * @param {RepositoryInterface} repository
+     * @param {TrackingEventRepositoryInterface} repository
      */
-    constructor(private repository: RepositoryInterface<TrackingEvent>) {}
+    constructor(private repository: TrackingEventRepositoryInterface) {}
 
     /**
      * Enqueues a new tracking event.

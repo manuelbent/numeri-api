@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { Client, RepositoryInterface } from 'numeri-core'
+import { Client, ClientRepositoryInterface } from 'numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**
@@ -8,9 +8,9 @@ import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 export default class ClientService implements ClientServiceInterface {
     /**
      * @constructor
-     * @param {RepositoryInterface} repository
+     * @param {ClientRepositoryInterface} repository
      */
-    constructor(private repository: RepositoryInterface<Client>) {}
+    constructor(private repository: ClientRepositoryInterface) {}
 
     /**
      * Hashes the client secret using SHA-256.

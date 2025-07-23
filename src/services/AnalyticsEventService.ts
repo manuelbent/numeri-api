@@ -1,4 +1,4 @@
-import { AnalyticsEvent, RepositoryInterface } from 'numeri-core'
+import { AnalyticsEvent, AnalyticsEventRepositoryInterface } from 'numeri-core'
 import AnalyticsEventServiceInterface from '../interfaces/AnalyticsEventServiceInterface'
 
 /**
@@ -7,23 +7,25 @@ import AnalyticsEventServiceInterface from '../interfaces/AnalyticsEventServiceI
 export default class AnalyticsEventService implements AnalyticsEventServiceInterface {
     /**
      * @constructor
-     * @param {RepositoryInterface<AnalyticsEvent>} repository
+     * @param {AnalyticsEventRepositoryInterface} repository
      */
-    constructor(private repository: RepositoryInterface<AnalyticsEvent>) {}
+    constructor(private repository: AnalyticsEventRepositoryInterface) {}
 
     /**
      * Creates a new AnalyticsEvent.
      * @param {object} data
      */
     async create(data: object): Promise<AnalyticsEvent> {
-        return this.repository.create({ ...data })
+        return this.repository.create(data)
     }
 
     /**
-     * Filters AnalyticsEvents by the given query.
+     * Retrieves AnalyticsEvents based on the client ID and query.
+     * @param {number} clientId
      * @param {object} query
+     * @return {Promise<AnalyticsEvent[]>}
      */
-    async getBy(query: object): Promise<AnalyticsEvent[]> {
-        return this.repository.find({ ...query })
+    async loadByClientId(clientId: number, query: object): Promise<AnalyticsEvent[]> {
+        return this.repository.loadByClientId(clientId, query)
     }
 }

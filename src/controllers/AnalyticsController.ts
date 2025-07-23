@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { Client } from 'numeri-core'
 import AnalyticsEventServiceInterface from '../interfaces/AnalyticsEventServiceInterface'
 
 /**
@@ -18,8 +19,9 @@ export default class AnalyticsController {
      * @param {Response} res
      * @returns {Promise<void>}
      */
-    async get({ query }: Request, res: Response): Promise<void> {
-        const analyticsEvents = await this.analyticsEventService.getBy(query)
+    async get(req: Request, res: Response): Promise<void> {
+        const clientId = (req as Request&{ client: Client}).client.id
+        const analyticsEvents = await this.analyticsEventService.loadByClientId(clientId, req.query)
         res.status(200).json(analyticsEvents)
     }
 }
