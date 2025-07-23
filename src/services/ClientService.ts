@@ -45,4 +45,15 @@ export default class ClientService implements ClientServiceInterface {
     async getBy(query: object): Promise<Client[]> {
         return this.repository.find({ ...query })
     }
+
+    /**
+     * Retrieves a client by its API key.
+     * @param {string} apiKey
+     * @return {Promise<Client|null>}
+     */
+    async getByApiKey(apiKey: string): Promise<Client|null> {
+        const clientSecretHash = this.hash(apiKey)
+        const [client] = await this.repository.find({ clientSecretHash })
+        return client
+    }
 }

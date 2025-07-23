@@ -14,6 +14,7 @@ import TrackingEventService from '../services/TrackingEventService'
 import AnalyticsEventService from '../services/AnalyticsEventService'
 import ClientService from '../services/ClientService'
 // validators
+import GetAnalyticsValidator from '../validators/GetAnalyticsValidator'
 import TrackRequestValidator from '../validators/TrackRequestValidator'
 import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'
 // middlewares
@@ -41,6 +42,7 @@ class Container {
     private clientRepository: ClientRepository = new ClientRepository()
     public clientService: ClientService = new ClientService(this.clientRepository)
     public clientController: ClientController = new ClientController(this.clientService)
+    public getAnalyticsValidator: GetAnalyticsValidator = new GetAnalyticsValidator(this.clientService)
     public trackRequestValidator: TrackRequestValidator = new TrackRequestValidator(this.clientService)
     public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator(this.clientService)
 }

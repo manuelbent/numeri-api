@@ -17,8 +17,10 @@ export default class BaseRequestValidator {
      * @param {NextFunction} next
      */
     public validate(req: Request, _: Response, next: NextFunction) {
-        // validate the request body against the schema
-        this.schema.parse(req.body)
+        // determine if the request is a GET or POST and get the payload accordingly
+        const payload = req.method === 'GET' ? req.query : req.body
+        // validate the payload against the schema
+        this.schema.parse(payload)
         next()
     }
 }

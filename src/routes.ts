@@ -20,7 +20,7 @@ router.post('/track',
 
 // analytics routes
 router.get('/analytics',
-    // todo: auth middleware
+    (req: Request, res: Response, next: NextFunction) => ioc.getAnalyticsValidator.validate(req, res, next),
     (req: Request, res: Response) => ioc.analyticsController.get(req, res)
 )
 
