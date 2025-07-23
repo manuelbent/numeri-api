@@ -1,5 +1,4 @@
-import { AnalyticsEvent } from 'numeri-core'
-import RepositoryInterface from '../interfaces/RepositoryInterface'
+import { AnalyticsEvent, RepositoryInterface } from 'numeri-core'
 import AnalyticsEventServiceInterface from '../interfaces/AnalyticsEventServiceInterface'
 
 /**

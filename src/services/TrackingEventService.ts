@@ -1,6 +1,5 @@
-import { TrackingEvent } from 'numeri-core'
+import { TrackingEvent, RepositoryInterface } from 'numeri-core'
 import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
-import RepositoryInterface from '../interfaces/RepositoryInterface'
 
 /**
  * @class TrackingEventService

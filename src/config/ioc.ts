@@ -1,10 +1,7 @@
 // common resources
 import {
-    Client,
     ClientRepository,
-    TrackingEvent,
     TrackingEventRepository,
-    AnalyticsEvent,
     AnalyticsEventRepository
 } from 'numeri-core'
 // controllers
@@ -35,13 +32,13 @@ class Container {
     public malformedDataMiddleware: MalformedDataMiddleware = new MalformedDataMiddleware()
     public requestIdMiddleware: RequestIdMiddleware = new RequestIdMiddleware()
     public genericErrorMiddleware: GenericErrorMiddleware = new GenericErrorMiddleware()
-    private trackingEventRepository: TrackingEventRepository = new TrackingEventRepository(TrackingEvent)
+    private trackingEventRepository: TrackingEventRepository = new TrackingEventRepository()
     public trackingEventService: TrackingEventService = new TrackingEventService(this.trackingEventRepository)
     public trackingController: TrackingController = new TrackingController(this.trackingEventService)
-    private analyticsEventRepository: AnalyticsEventRepository = new AnalyticsEventRepository(AnalyticsEvent)
+    private analyticsEventRepository: AnalyticsEventRepository = new AnalyticsEventRepository()
     public analyticsEventService: AnalyticsEventService = new AnalyticsEventService(this.analyticsEventRepository)
     public analyticsController: AnalyticsController = new AnalyticsController(this.analyticsEventService)
-    private clientRepository: ClientRepository = new ClientRepository(Client)
+    private clientRepository: ClientRepository = new ClientRepository()
     public clientService: ClientService = new ClientService(this.clientRepository)
     public clientController: ClientController = new ClientController(this.clientService)
     public trackRequestValidator: TrackRequestValidator = new TrackRequestValidator(this.clientService)
