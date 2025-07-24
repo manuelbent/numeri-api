@@ -5,5 +5,5 @@ import { AnalyticsEvent } from 'numeri-core'
  */
 export default interface AnalyticsEventServiceInterface {
     create(data: object): Promise<AnalyticsEvent>
-    loadByClientId(clientId: number, query: object): Promise<AnalyticsEvent[]>
+    loadByClient(id: number, query: object): Promise<AnalyticsEvent[]>
 }

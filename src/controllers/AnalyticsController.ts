@@ -20,8 +20,8 @@ export default class AnalyticsController {
      * @returns {Promise<void>}
      */
     async get(req: Request, res: Response): Promise<void> {
-        const clientId = (req as Request&{ client: Client}).client.id
-        const analyticsEvents = await this.analyticsEventService.loadByClientId(clientId, req.query)
+        const id = (req as Request&{ client: Client}).client.id
+        const analyticsEvents = await this.analyticsEventService.loadByClient(id, req.query)
         res.status(200).json(analyticsEvents)
     }
 }

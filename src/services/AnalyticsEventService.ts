@@ -21,11 +21,11 @@ export default class AnalyticsEventService implements AnalyticsEventServiceInter
 
     /**
      * Retrieves AnalyticsEvents based on the client ID and query.
-     * @param {number} clientId
+     * @param {number} id
      * @param {object} query
      * @return {Promise<AnalyticsEvent[]>}
      */
-    async loadByClientId(clientId: number, query: object): Promise<AnalyticsEvent[]> {
-        return this.repository.loadByClientId(clientId, query)
+    async loadByClient(id: number, query: object): Promise<AnalyticsEvent[]> {
+        return this.repository.loadByClient(id, query)
     }
 }
