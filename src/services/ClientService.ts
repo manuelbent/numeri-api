@@ -47,7 +47,7 @@ export default class ClientService implements ClientServiceInterface {
     }
 
     /**
-     * Retrieves a client by its API key.
+     * Retrieves a client by its secret hash.
      * @param {string} secret
      * @return {Promise<Client|null>}
      */

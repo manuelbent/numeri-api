@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express'
-import { LRUCache } from 'lru-cache'
 import { z } from 'zod'
 import { Client } from 'numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
@@ -15,11 +14,6 @@ export default class GetAnalyticsValidator {
         eventType: z.string(),
         //
     }).strict()
-
-    /**
-     * @private {LRUCache}
-     */
-    private cache = new LRUCache<string, Client>({ max: 100 })
 
     /**
      * @constructor
@@ -38,16 +32,12 @@ export default class GetAnalyticsValidator {
             return res.status(400).json({ error: 'Missing secret key.' })
         }
 
-        if (!this.cache.has(secret)) {
-            const client = await this.clientService.getBySecret(secret)
-            if (!client) {
-                return res.status(404).json({ error: 'Client not found' })
-            }
-
-            this.cache.set(secret, client)
+        const client = await this.clientService.getBySecret(secret)
+        if (!client) {
+            return res.status(404).json({ error: 'Client not found' })
         }
 
-        (req as Request&{ client: Client }).client = this.cache.get(secret)!
+        (req as Request&{ client: Client }).client = client
 
         this.schema.parse(req.query)
 
