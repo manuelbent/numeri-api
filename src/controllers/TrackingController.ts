@@ -22,7 +22,7 @@ export default class TrackingController {
     public async track(req: Request, res: Response): Promise<void> {
         // build the tracking event and enqueue it for processing
         const { id, uuid } = await this.trackingEventService.enqueue({
-            clientId: (req as Request&{ client: Client }).client.clientId,
+            clientId: (req as Request&{ client: Client }).client.id,
             payload: {
                 ...req.body,
                 $ip: req.ip || req.headers['x-forwarded-for'],

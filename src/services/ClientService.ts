@@ -23,15 +23,15 @@ export default class ClientService implements ClientServiceInterface {
 
     /**
      * Registers a new client.
-     * The returned client object contains the created client and the plain secret.
+     * The returned object contains the created client and the plain secret.
      * @param {object} payload
      * @returns {Promise<[Client|string]>}
      */
     async register(payload: object): Promise<[Client, string]> {
         const secret = crypto.randomBytes(32).toString('hex')
         const client = await this.repository.create({
-            clientId: crypto.randomUUID(),
-            clientSecretHash: this.hash(secret),
+            apiKey: crypto.randomUUID(),
+            secretHash: this.hash(secret),
             ...payload,
         })
         return [client, secret]
@@ -48,12 +48,12 @@ export default class ClientService implements ClientServiceInterface {
 
     /**
      * Retrieves a client by its API key.
-     * @param {string} apiKey
+     * @param {string} secret
      * @return {Promise<Client|null>}
      */
-    async getByApiKey(apiKey: string): Promise<Client|null> {
-        const clientSecretHash = this.hash(apiKey)
-        const [client] = await this.repository.find({ clientSecretHash })
+    async getBySecret(secret: string): Promise<Client|null> {
+        const secretHash = this.hash(secret)
+        const [client] = await this.repository.find({ secretHash })
         return client
     }
 }

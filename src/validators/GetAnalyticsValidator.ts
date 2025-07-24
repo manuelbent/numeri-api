@@ -33,21 +33,21 @@ export default class GetAnalyticsValidator {
      * @param {NextFunction} next
      */
     async validate(req: Request, res: Response, next: NextFunction) {
-        const apiKey = req.get('x-api-key')
-        if (!apiKey) {
-            return res.status(400).json({ error: 'Missing API key' })
+        const secret = req.get('x-secret-key')
+        if (!secret) {
+            return res.status(400).json({ error: 'Missing secret key.' })
         }
 
-        if (!this.cache.has(apiKey)) {
-            const client = await this.clientService.getByApiKey(apiKey)
+        if (!this.cache.has(secret)) {
+            const client = await this.clientService.getBySecret(secret)
             if (!client) {
                 return res.status(404).json({ error: 'Client not found' })
             }
 
-            this.cache.set(apiKey, client)
+            this.cache.set(secret, client)
         }
 
-        (req as Request&{ client: Client }).client = this.cache.get(apiKey)!
+        (req as Request&{ client: Client }).client = this.cache.get(secret)!
 
         this.schema.parse(req.query)
 

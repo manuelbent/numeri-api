@@ -34,28 +34,28 @@ export default class TrackRequestValidator {
      * @param {NextFunction} next
      */
     async validate(req: Request, res: Response, next: NextFunction) {
-        const clientId = req.get('x-client-id')
-        if (!clientId) {
-            return res.status(400).json({ error: 'x-client-id header is required' })
+        const apiKey = req.get('x-api-key')
+        if (!apiKey) {
+            return res.status(400).json({ error: 'Missing API key.' })
         }
 
         const origin = req.get('origin')
         if (!origin) {
-            return res.status(400).json({ error: 'Origin header is required' })
+            return res.status(400).json({ error: 'Missing Origin header.' })
         }
 
-        if (!this.cache.has(clientId)) {
-            const [client] = await this.clientService.getBy({ clientId })
+        if (!this.cache.has(apiKey)) {
+            const [client] = await this.clientService.getBy({ apiKey })
             if (!client) {
-                return res.status(404).json({ error: 'Client not found' })
+                return res.status(404).json({ error: 'Client not found.' })
             }
 
-            this.cache.set(clientId, client)
+            this.cache.set(apiKey, client)
         }
 
-        const client = this.cache.get(clientId)!
+        const client = this.cache.get(apiKey)!
         if (!(client.allowedOrigins as string[]).includes(origin)) {
-            return res.status(403).json({ error: 'Origin not allowed' })
+            return res.status(403).json({ error: 'Origin not allowed.' })
         }
 
         {
