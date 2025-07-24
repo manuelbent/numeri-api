@@ -28,10 +28,21 @@ export default class ClientService implements ClientServiceInterface {
      * @returns {Promise<[Client|string]>}
      */
     async register(payload: object): Promise<[Client, string]> {
-        const secret = crypto.randomBytes(32).toString('hex')
+        let secret: string
+        let secretHash: string
+        do {
+            secret = crypto.randomBytes(32).toString('hex')
+            secretHash = this.hash(secret)
+        } while (await this.getBy({ secretHash }))
+
+        let apiKey: string
+        do {
+            apiKey = crypto.randomUUID()
+        } while (await this.getBy({ apiKey }))
+
         const client = await this.repository.create({
-            apiKey: crypto.randomUUID(),
-            secretHash: this.hash(secret),
+            apiKey,
+            secretHash,
             ...payload,
         })
         return [client, secret]
