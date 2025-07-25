@@ -3,7 +3,7 @@ import cors from 'cors'
 
 import './config/redis'
 import ioc from './config/ioc'
-import routes from './routes'
+import routes from './routes/router'
 
 const app = express()
 

@@ -12,7 +12,9 @@ export default class SystemController {
      */
     public async home(_: Request, res: Response) {
         res.status(200).json({
-            message: 'Welcome to numeri!',
+            name: 'numeri',
+            version: '0.0.0.0',
+            message: 'All systems operational',
         })
     }
 
@@ -24,6 +26,17 @@ export default class SystemController {
     public async healthcheck(_: Request, res: Response) {
         res.status(200).json({
             status: 'ok'
+        })
+    }
+
+    /**
+     * Responds with a 404 Not Found status.
+     * @param {Request} _
+     * @param {Response} res
+     */
+    public async notFound(_: Request, res: Response) {
+        res.status(404).json({
+            message: 'Looks like there is nothing here',
         })
     }
 }
