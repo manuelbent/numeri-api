@@ -13,8 +13,9 @@ export default class SystemController {
     public async home(_: Request, res: Response) {
         res.status(200).json({
             name: 'numeri',
-            version: '0.0.0.0',
-            message: 'All systems operational',
+            version: '0.0.0.0', // This should be replaced with the actual version from package.json or similar
+            description: 'Lightweight analytics tool. No overkill, no fuss, just the essentials.',
+            message: 'All systems operational.',
         })
     }
 
@@ -25,7 +26,7 @@ export default class SystemController {
      */
     public async healthcheck(_: Request, res: Response) {
         res.status(200).json({
-            status: 'ok'
+            status: 'healthy',
         })
     }
 
@@ -36,7 +37,7 @@ export default class SystemController {
      */
     public async notFound(_: Request, res: Response) {
         res.status(404).json({
-            message: 'Looks like there is nothing here',
+            message: 'Looks like there is nothing here. 🔎',
         })
     }
 }
