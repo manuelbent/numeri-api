@@ -20,7 +20,7 @@ export default class ClientController {
      * @returns {Promise<void>}
      */
     async register(req: Request, res: Response): Promise<void> {
-        const [{ apiKey }, secret] = await this.clientService.register(req.body)
+        const [apiKey, secret] = await this.clientService.register(req.body)
         logger.info(`Client registered with API key: ${apiKey}`)
         res.status(200).json({ apiKey, secret })
     }
