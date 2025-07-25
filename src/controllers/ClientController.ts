@@ -14,7 +14,7 @@ export default class ClientController {
     constructor(private clientService: ClientServiceInterface) {}
 
     /**
-     * Retrieves analytics events.
+     * Registers a new client and returns the API key and secret.
      * @param {Request} req
      * @param {Response} res
      * @returns {Promise<void>}

@@ -2,21 +2,24 @@
 import {
     ClientRepository,
     TrackingEventRepository,
-    AnalyticsEventRepository
+    AnalyticsEventRepository, OneTimeCodeRepository
 } from 'numeri-core'
 // controllers
 import SystemController from '../controllers/SystemController'
 import TrackingController from '../controllers/TrackingController'
 import AnalyticsController from '../controllers/AnalyticsController'
 import ClientController from '../controllers/ClientController'
+import OneTimeCodeController from '../controllers/OneTimeCodeController'
 // services
 import TrackingEventService from '../services/TrackingEventService'
 import AnalyticsEventService from '../services/AnalyticsEventService'
 import ClientService from '../services/ClientService'
+import OneTimeCodeService from '../services/OneTimeCodeService'
 // validators
 import GetAnalyticsValidator from '../validators/GetAnalyticsValidator'
 import TrackRequestValidator from '../validators/TrackRequestValidator'
 import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'
+import CreateOneTimeCodeRequestValidator from '../validators/CreateOneTimeCodeRequestValidator'
 // middlewares
 import RequestIdMiddleware from '../middlewares/RequestIdMiddleware'
 import ValidationErrorMiddleware from '../middlewares/ValidationErrorMiddleware'
@@ -45,6 +48,10 @@ class Container {
     public getAnalyticsValidator: GetAnalyticsValidator = new GetAnalyticsValidator(this.clientService)
     public trackRequestValidator: TrackRequestValidator = new TrackRequestValidator(this.clientService)
     public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator(this.clientService)
+    public createOneTimeCodeRequestValidator: CreateOneTimeCodeRequestValidator = new CreateOneTimeCodeRequestValidator()
+    private oneTimeCodeRepository: OneTimeCodeRepository = new OneTimeCodeRepository()
+    public oneTimeCodeService: OneTimeCodeService = new OneTimeCodeService(this.oneTimeCodeRepository)
+    public oneTimeCodeController: OneTimeCodeController = new OneTimeCodeController(this.oneTimeCodeService)
 }
 
 export default new Container()
