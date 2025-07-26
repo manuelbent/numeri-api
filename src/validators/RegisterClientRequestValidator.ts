@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { z } from 'zod'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
+import OneTimeCodeServiceInterface from '../interfaces/OneTimeCodeServiceInterface'
 
 /**
  * @class RegisterClientRequestValidator
@@ -18,8 +19,9 @@ export default class RegisterClientRequestValidator {
     /**
      * @constructor
      * @param {ClientServiceInterface} clientService
+     * @param {OneTimeCodeServiceInterface} oneTimeCodeService
      */
-    constructor(private clientService: ClientServiceInterface) {}
+    constructor(private clientService: ClientServiceInterface, private oneTimeCodeService: OneTimeCodeServiceInterface) {}
 
     /**
      * @param {Request} req
@@ -27,13 +29,21 @@ export default class RegisterClientRequestValidator {
      * @param {NextFunction} next
      */
     async validate(req: Request, res: Response, next: NextFunction) {
-        const bearer = req.headers['authorization']?.split(' ')[1]
-        if (!bearer) {
-            return res.status(401).json({ message: 'Unauthorized' })
+        const { code } = req.query
+        if (!code) {
+            return res.status(400).json({ error: 'Missing registration code.' })
         }
 
-        if (bearer !== process.env.ADMIN_BEARER) {
-            return res.status(403).json({ message: 'Forbidden' })
+        // validate the one-time code
+        const oneTimeCode = await this.oneTimeCodeService.getByCode(code as string)
+        if (!oneTimeCode) {
+            return res.status(400).json({ error: 'Invalid registration code.' })
+        }
+        if (oneTimeCode.expiresAt < new Date()) {
+            return res.status(400).json({ error: 'Registration code has expired.' })
+        }
+        if (oneTimeCode.usedAt) {
+            return res.status(400).json({ error: 'Registration code has already been used.' })
         }
 
         // validate the request body

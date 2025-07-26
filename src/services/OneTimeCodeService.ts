@@ -27,4 +27,13 @@ export default class OneTimeCodeService implements OneTimeCodeServiceInterface {
             expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 100)
         })
     }
+
+    /**
+     * @param {string} code
+     * @returns {Promise<OneTimeCode>}
+     */
+    async getByCode(code: string): Promise<OneTimeCode> {
+        const [oneTimeCode] = await this.repository.find({ code })
+        return oneTimeCode
+    }
 }

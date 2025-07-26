@@ -47,11 +47,11 @@ class Container {
     public clientController: ClientController = new ClientController(this.clientService)
     public getAnalyticsValidator: GetAnalyticsValidator = new GetAnalyticsValidator(this.clientService)
     public trackRequestValidator: TrackRequestValidator = new TrackRequestValidator(this.clientService)
-    public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator(this.clientService)
     public createOneTimeCodeRequestValidator: CreateOneTimeCodeRequestValidator = new CreateOneTimeCodeRequestValidator()
     private oneTimeCodeRepository: OneTimeCodeRepository = new OneTimeCodeRepository()
     public oneTimeCodeService: OneTimeCodeService = new OneTimeCodeService(this.oneTimeCodeRepository)
     public oneTimeCodeController: OneTimeCodeController = new OneTimeCodeController(this.oneTimeCodeService)
+    public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator(this.clientService, this.oneTimeCodeService)
 }
 
 export default new Container()

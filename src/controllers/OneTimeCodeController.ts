@@ -21,7 +21,7 @@ export default class OneTimeCodeController {
         // generate a unique one-time code
         const { code, expiresAt } = await this.oneTimeCodeService.create()
         // generate a url for the client registration
-        const url = `${process.env.ROOT_URL}/clients/register?code=${code}`
+        const url = `${process.env.ROOT_URL}/v1/clients/register?code=${code}`
         // respond with the code, url, and expiration date
         res.status(200).json({ code, url, expiresAt })
     }

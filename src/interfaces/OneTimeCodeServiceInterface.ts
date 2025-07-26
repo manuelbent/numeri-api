@@ -5,4 +5,5 @@ import { OneTimeCode } from 'numeri-core'
  */
 export default interface OneTimeCodeServiceInterface {
     create(): Promise<OneTimeCode>
+    getByCode(code: string): Promise<OneTimeCode>
 }
