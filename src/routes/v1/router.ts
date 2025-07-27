@@ -1,10 +1,12 @@
 import { Router, Request, Response, NextFunction } from 'express'
+import { limiter } from '../../config/rateLimit'
 import ioc from '../../config/ioc'
 
 const router = Router()
 
 // one-time codes routes
 router.post('/codes',
+    limiter,
     (req: Request, res: Response, next: NextFunction) => ioc.createOneTimeCodeRequestValidator.validate(req, res, next),
     (req: Request, res: Response) => ioc.oneTimeCodeController.create(req, res)
 )
