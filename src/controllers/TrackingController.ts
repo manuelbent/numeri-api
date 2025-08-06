@@ -25,6 +25,7 @@ export default class TrackingController {
             clientId: (req as Request&{ client: Client }).client.id,
             payload: {
                 ...req.body,
+                timestamp: req.body.timestamp ?? new Date().toISOString(),
                 $ip: req.ip || req.headers['x-forwarded-for'],
                 $site: req.headers.origin || req.headers.referer || 'unknown-site'
             }
