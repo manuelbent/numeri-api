@@ -12,7 +12,8 @@ export default class GetAnalyticsValidator {
      */
     schema = z.object({
         eventType: z.string(),
-        //
+        page: z.string().default('1'),
+        limit: z.string().default('50')
     }).strict()
 
     /**
@@ -37,9 +38,16 @@ export default class GetAnalyticsValidator {
             return res.status(404).json({ error: 'Client not found' })
         }
 
-        (req as Request&{ client: Client }).client = client
+        {
+            (req as Request&{ client: Client }).client = client
+        }
 
-        this.schema.parse(req.query)
+        {
+            // validate the query, define and set a parsed query (pq) property
+            (req as Request&{
+                pq: { eventType: string, page: string, limit: string }
+            }).pq = this.schema.parse(req.query)
+        }
 
         next()
     }

@@ -13,6 +13,7 @@ router.post('/codes',
 
 // clients routes
 router.post('/clients/register',
+    limiter,
     (req: Request, res: Response, next: NextFunction) => ioc.registerClientRequestValidator.validate(req, res, next),
     (req: Request, res: Response) => ioc.clientController.register(req, res)
 )

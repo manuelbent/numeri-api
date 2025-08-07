@@ -25,7 +25,7 @@ export default class AnalyticsEventService implements AnalyticsEventServiceInter
      * @param {object} query
      * @return {Promise<AnalyticsEvent[]>}
      */
-    async loadByClient(id: number, query: object): Promise<AnalyticsEvent[]> {
-        return this.repository.loadByClient(id, query)
+    async loadByClient(id: number, { page, limit, ...where }: Record<string, string|number>): Promise<AnalyticsEvent[]> {
+        return this.repository.loadByClient(id, where, { limit, offset: (+page - 1) * +limit })
     }
 }

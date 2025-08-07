@@ -20,7 +20,7 @@ describe('/codes', () => {
     })
 
     beforeEach(() => {
-        limiter.resetKey('::ffff:127.0.0.1')
+        limiter.resetKey('::/56') // local test ip
     })
 
     it('must block unauthorized requests', async () => {
