@@ -58,11 +58,9 @@ export default class TrackRequestValidator {
             return res.status(403).json({ error: 'Origin not allowed.' })
         }
 
-        {
-            this.schema.parse(req.body)
-        }
-
         (req as Request&{ client: Client }).client = client
+
+        this.schema.parse(req.body)
 
         next()
     }
