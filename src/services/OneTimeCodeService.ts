@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import { OneTimeCode, OneTimeCodeRepository } from 'numeri-core'
 import OneTimeCodeServiceInterface from '../interfaces/OneTimeCodeServiceInterface'
+import OneTimeCodeRepositoryInterface from 'numeri-core/dist/src/interfaces/OneTimeCodeRepositoryInterface'
 
 /**
  * @class OneTimeCodeService
@@ -10,7 +11,7 @@ export default class OneTimeCodeService implements OneTimeCodeServiceInterface {
      * @constructor
      * @param {OneTimeCodeServiceInterface} repository
      */
-    constructor(private repository: OneTimeCodeRepository) {}
+    constructor(private repository: OneTimeCodeRepositoryInterface) {}
 
     /**
      * Creates a unique one-time code.

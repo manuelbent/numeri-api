@@ -2,7 +2,11 @@
 import {
     ClientRepository,
     TrackingEventRepository,
-    AnalyticsEventRepository, OneTimeCodeRepository
+    AnalyticsEventRepository,
+    OneTimeCodeRepository,
+    ClientRepositoryInterface,
+    TrackingEventRepositoryInterface,
+    AnalyticsEventRepositoryInterface
 } from 'numeri-core'
 // controllers
 import SystemController from '../controllers/SystemController'
@@ -25,6 +29,8 @@ import RequestIdMiddleware from '../middlewares/RequestIdMiddleware'
 import ValidationErrorMiddleware from '../middlewares/ValidationErrorMiddleware'
 import MalformedDataMiddleware from '../middlewares/MalformedDataMiddleware'
 import GenericErrorMiddleware from '../middlewares/GenericErrorMiddleware'
+import OneTimeCodeRepositoryInterface from 'numeri-core/dist/src/interfaces/OneTimeCodeRepositoryInterface'
+import OneTimeCodeServiceInterface from '../interfaces/OneTimeCodeServiceInterface'
 
 /**
  * Dependency Injection Container.
@@ -36,20 +42,20 @@ class Container {
     public malformedDataMiddleware: MalformedDataMiddleware = new MalformedDataMiddleware()
     public requestIdMiddleware: RequestIdMiddleware = new RequestIdMiddleware()
     public genericErrorMiddleware: GenericErrorMiddleware = new GenericErrorMiddleware()
-    public trackingEventRepository: TrackingEventRepository = new TrackingEventRepository()
+    public trackingEventRepository: TrackingEventRepositoryInterface = new TrackingEventRepository()
     public trackingEventService: TrackingEventService = new TrackingEventService(this.trackingEventRepository)
     public trackingController: TrackingController = new TrackingController(this.trackingEventService)
-    public analyticsEventRepository: AnalyticsEventRepository = new AnalyticsEventRepository()
+    public analyticsEventRepository: AnalyticsEventRepositoryInterface = new AnalyticsEventRepository()
     public analyticsEventService: AnalyticsEventService = new AnalyticsEventService(this.analyticsEventRepository)
     public analyticsController: AnalyticsController = new AnalyticsController(this.analyticsEventService)
-    public clientRepository: ClientRepository = new ClientRepository()
+    public clientRepository: ClientRepositoryInterface = new ClientRepository()
     public clientService: ClientService = new ClientService(this.clientRepository)
     public clientController: ClientController = new ClientController(this.clientService)
     public getAnalyticsValidator: GetAnalyticsValidator = new GetAnalyticsValidator(this.clientService)
     public trackRequestValidator: TrackRequestValidator = new TrackRequestValidator(this.clientService)
     public createOneTimeCodeRequestValidator: CreateOneTimeCodeRequestValidator = new CreateOneTimeCodeRequestValidator()
-    public oneTimeCodeRepository: OneTimeCodeRepository = new OneTimeCodeRepository()
-    public oneTimeCodeService: OneTimeCodeService = new OneTimeCodeService(this.oneTimeCodeRepository)
+    public oneTimeCodeRepository: OneTimeCodeRepositoryInterface = new OneTimeCodeRepository()
+    public oneTimeCodeService: OneTimeCodeServiceInterface = new OneTimeCodeService(this.oneTimeCodeRepository)
     public oneTimeCodeController: OneTimeCodeController = new OneTimeCodeController(this.oneTimeCodeService)
     public registerClientRequestValidator: RegisterClientRequestValidator = new RegisterClientRequestValidator(this.clientService, this.oneTimeCodeService)
 }
