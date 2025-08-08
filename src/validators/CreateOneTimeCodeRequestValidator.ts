@@ -12,11 +12,11 @@ export default class CreateOneTimeCodeRequestValidator {
     async validate(req: Request, res: Response, next: NextFunction) {
         const bearer = req.headers['authorization']?.split(' ')[1]
         if (!bearer) {
-            return res.status(401).json({ message: 'Unauthorized' })
+            return res.status(401).json({ error: 'Unauthorized.' })
         }
 
         if (bearer !== process.env.ADMIN_BEARER) {
-            return res.status(403).json({ message: 'Forbidden' })
+            return res.status(403).json({ error: 'Forbidden.' })
         }
 
         next()

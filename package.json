@@ -4,6 +4,7 @@
   "description": "API layer for numeri.",
   "main": "dist/server.js",
   "scripts": {
+    "test": "vitest run",
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "npm run build && npm start",
