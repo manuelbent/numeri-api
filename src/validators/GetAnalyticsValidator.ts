@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
 import { Client } from 'numeri-core'
+import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../config/constants'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**
@@ -12,8 +13,8 @@ export default class GetAnalyticsValidator {
      */
     schema = z.object({
         eventType: z.string(),
-        page: z.string().default('1'),
-        limit: z.string().default('50')
+        page: z.string().default(String(DEFAULT_PAGE)),
+        limit: z.string().default(String(DEFAULT_LIMIT))
     }).strict()
 
     /**
@@ -35,7 +36,7 @@ export default class GetAnalyticsValidator {
 
         const client = await this.clientService.getBySecret(secret)
         if (!client) {
-            return res.status(404).json({ error: 'Client not found' })
+            return res.status(404).json({ error: 'Client not found.' })
         }
 
         {

@@ -51,7 +51,7 @@ export default class RegisterClientRequestValidator {
 
         const client = await this.clientService.getBy({ name: req.body.name, ownerEmail: req.body.ownerEmail })
         if (client.length) {
-            return res.status(409).json({ error: 'Client already exists' })
+            return res.status(409).json({ error: 'Client already exists.' })
         }
 
         next()

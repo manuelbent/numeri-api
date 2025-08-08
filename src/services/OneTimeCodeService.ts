@@ -24,7 +24,7 @@ export default class OneTimeCodeService implements OneTimeCodeServiceInterface {
 
         return await this.repository.create({
             code,
-            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 100)
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         })
     }
 
