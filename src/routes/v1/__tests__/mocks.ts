@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { Client, OneTimeCode } from 'numeri-core'
+import { Client, OneTimeCode, TrackingEvent } from 'numeri-core'
 import RepositoryInterface from 'numeri-core/dist/src/interfaces/RepositoryInterface'
 
 class MockRepository<T> implements RepositoryInterface<T> {
@@ -28,15 +28,15 @@ class MockRepository<T> implements RepositoryInterface<T> {
     }
 
     async find(where: object): Promise<T[]> {
-        return this.items.filter(item => {
+        return vi.fn(() => this.items.filter(item => {
             return Object.keys(where).every(key => item[key as keyof T] === where[key as keyof typeof where])
-        })
+        }))()
     }
 
     async count(where: object): Promise<number> {
-        return this.items.filter(item => {
+        return vi.fn(() => this.items.filter(item => {
             return Object.keys(where).every(key => item[key as keyof T] === where[key as keyof typeof where])
-        }).length
+        }).length)()
     }
 }
 
@@ -52,4 +52,8 @@ export class MockOneTimeCodeRepository extends MockRepository<OneTimeCode> {
     }
 }
 
-export class MockClientRepository extends MockRepository<Client> {}
+export class MockClientRepository extends MockRepository<Client> {
+}
+
+export class MockTrackingEventRepository extends MockRepository<TrackingEvent> {
+}

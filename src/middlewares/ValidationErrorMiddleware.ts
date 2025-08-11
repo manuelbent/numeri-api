@@ -15,7 +15,7 @@ export default class ValidationErrorMiddleware {
      */
     public handle(err: unknown, _: Request, res: Response, next: NextFunction): void {
         if (err instanceof ZodError) {
-            res.status(400).json({ error: 'Invalid request data', details: err.errors })
+            res.status(400).json({ error: 'Invalid request data.', details: err.errors })
         } else {
             next(err)
         }

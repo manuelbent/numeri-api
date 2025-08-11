@@ -156,6 +156,11 @@ class Container {
     public set clientRepository(repository: ClientRepositoryInterface) {
         this._clientRepository = repository
     }
+
+    // setter to allow mocking in tests
+    public set trackingEventRepository(repository: TrackingEventRepositoryInterface) {
+        this._trackingEventRepository = repository
+    }
 }
 
 export default new Container()
