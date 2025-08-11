@@ -56,4 +56,17 @@ export class MockClientRepository extends MockRepository<Client> {
 }
 
 export class MockTrackingEventRepository extends MockRepository<TrackingEvent> {
+    async create(data: object): Promise<TrackingEvent> {
+        const item = data as TrackingEvent
+        item.uuid = crypto.randomUUID()
+        item.createdAt = new Date()
+        this.items.push(item)
+        return vi.fn(() => item)()
+    }
+}
+
+export class MockRedisService {
+    publish(channel: string, message: string): Promise<number> {
+        return vi.fn(() => Promise.resolve(1))()
+    }
 }

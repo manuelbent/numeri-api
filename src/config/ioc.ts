@@ -14,6 +14,7 @@ import OneTimeCodeServiceInterface from '../interfaces/OneTimeCodeServiceInterfa
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
 import AnalyticsEventServiceInterface from '../interfaces/AnalyticsEventServiceInterface'
+import RedisServiceInterface from '../interfaces/RedisServiceInterface'
 // controllers
 import SystemController from '../controllers/SystemController'
 import TrackingController from '../controllers/TrackingController'
@@ -25,6 +26,7 @@ import TrackingEventService from '../services/TrackingEventService'
 import AnalyticsEventService from '../services/AnalyticsEventService'
 import ClientService from '../services/ClientService'
 import OneTimeCodeService from '../services/OneTimeCodeService'
+import RedisService from '../services/RedisService'
 // validators
 import GetAnalyticsValidator from '../validators/GetAnalyticsValidator'
 import TrackRequestValidator from '../validators/TrackRequestValidator'
@@ -62,6 +64,7 @@ class Container {
     private _oneTimeCodeService?: OneTimeCodeServiceInterface
     private _oneTimeCodeController?: OneTimeCodeController
     private _registerClientRequestValidator?: RegisterClientRequestValidator
+    private _redisService?: RedisServiceInterface
 
     public get systemController(): SystemController {
         return this._systemController ??= new SystemController()
@@ -92,7 +95,7 @@ class Container {
     }
 
     public get trackingController(): TrackingController {
-        return this._trackingController ??= new TrackingController(this.trackingEventService)
+        return this._trackingController ??= new TrackingController(this.trackingEventService, this.redisService)
     }
 
     public get analyticsEventRepository(): AnalyticsEventRepositoryInterface {
@@ -147,6 +150,10 @@ class Container {
         return this._registerClientRequestValidator ??= new RegisterClientRequestValidator(this.clientService, this.oneTimeCodeService)
     }
 
+    public get redisService(): RedisServiceInterface {
+        return this._redisService ??= new RedisService()
+    }
+
     // setter to allow mocking in tests
     public set oneTimeCodeRepository(repository: OneTimeCodeRepositoryInterface) {
         this._oneTimeCodeRepository = repository
@@ -160,6 +167,11 @@ class Container {
     // setter to allow mocking in tests
     public set trackingEventRepository(repository: TrackingEventRepositoryInterface) {
         this._trackingEventRepository = repository
+    }
+
+    // setter to allow mocking in tests
+    public set redisService(service: RedisServiceInterface) {
+        this._redisService = service
     }
 }
 

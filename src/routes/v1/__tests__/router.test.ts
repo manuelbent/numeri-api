@@ -9,7 +9,7 @@ import {
 import app from '../../../app'
 import ioc from '../../../config/ioc'
 import { limiter } from '../../../config/rateLimit'
-import { MockClientRepository, MockOneTimeCodeRepository, MockTrackingEventRepository } from './mocks'
+import { MockClientRepository, MockOneTimeCodeRepository, MockRedisService, MockTrackingEventRepository } from './mocks'
 
 describe('router', () => {
     beforeAll(() => {
@@ -185,7 +185,9 @@ describe('router', () => {
             expect(res.body.details.length).greaterThanOrEqual(1)
         })
 
-        it.skip('must track an event', async () => {
+        it('must track an event', async () => {
+            // mock the redis service
+            ioc.redisService = new MockRedisService()
             const { body: { code } } = await request(app).post('/v1/codes').set('Authorization', `Bearer ${process.env.ADMIN_BEARER}`).send({})
             const { body: { apiKey } } = await request(app).post(`/v1/clients/register?code=${code}`).send({
                 name: 'test client',
@@ -202,6 +204,8 @@ describe('router', () => {
                     }
                 })
             expect(res.status).toBe(200)
+            expect(res.body).toHaveProperty('uuid', expect.any(String))
+            expect(res.body).toHaveProperty('message', 'Event tracked successfully.')
         })
     })
 })

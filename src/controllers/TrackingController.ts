@@ -1,18 +1,19 @@
 import { Request, Response } from 'express'
-import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
-import { client as RedisClient } from '../config/redis'
 import { Client } from 'numeri-core'
+import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
+import RedisServiceInterface from '../interfaces/RedisServiceInterface'
 
 /**
- * Ingests tracking events and publishes them to Redis for further processing.
  * @class TrackingController
+ * @description Ingests tracking events and publishes them to Redis for further processing.
  */
 export default class TrackingController {
     /**
      * @constructor
      * @param {TrackingEventServiceInterface} trackingEventService
+     * @param {RedisServiceInterface} redisService
      */
-    constructor(private trackingEventService: TrackingEventServiceInterface) {}
+    constructor(private trackingEventService: TrackingEventServiceInterface, private redisService: RedisServiceInterface) {}
 
     /**
      * @param {Request} req
@@ -32,9 +33,9 @@ export default class TrackingController {
         })
 
         // publish the tracking event to Redis
-        await RedisClient.publish('tracking-events', JSON.stringify({ id }))
+        await this.redisService.publish('tracking-events', JSON.stringify({ id }))
 
         // respond with the tracking event uuid
-        res.status(200).json({ uuid, message: 'Event tracked successfully' })
+        res.status(200).json({ uuid, message: 'Event tracked successfully.' })
     }
 }
