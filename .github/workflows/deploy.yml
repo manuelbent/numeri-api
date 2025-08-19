@@ -28,5 +28,6 @@ jobs:
           git pull
           npm ci
           npm run build
+          npm run migrate:up
           pm2 restart numeri-api
           EOF
