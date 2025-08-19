@@ -30,6 +30,11 @@ jobs:
 
       - name: Run tests
         run: npm run test
+        env:
+          NODE_ENV: test
+          LOG_LEVEL: debug
+          ADMIN_BEARER: 123123
+          ROOT_URL: http://localhost:3000
 
   deploy:
     name: Deploy to Ionos
