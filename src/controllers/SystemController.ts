@@ -15,7 +15,6 @@ export default class SystemController {
             name: 'numeri',
             version: '0.0.0.0', // This should be replaced with the actual version from package.json or similar
             description: 'Lightweight analytics tool. No overkill, no fuss, just the essentials.',
-            message: 'All systems operational.',
         })
     }
 
@@ -26,7 +25,7 @@ export default class SystemController {
      */
     public async healthcheck(_: Request, res: Response) {
         res.status(200).json({
-            status: 'healthy',
+            status: 'ok',
         })
     }
 
