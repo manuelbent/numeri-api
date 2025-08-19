@@ -6,10 +6,6 @@ on:
       - main
 
 jobs:
-  tests:
-    name: Run Tests
-    runs-on: ubuntu-latest
-
   deploy:
     name: Deploy to Ionos
     runs-on: ubuntu-latest
