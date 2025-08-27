@@ -4,14 +4,11 @@ import v1 from './v1/router'
 
 const router = Router()
 
-// landing route
-router.get('/', ioc.systemController.home)
+// root route
+router.get('/', ioc.systemController.root)
 
 // v1 API routes
 router.use('/v1', v1)
-
-// healthcheck route
-router.get('/healthcheck', ioc.systemController.healthcheck)
 
 // 404 Not Found route
 router.use(ioc.systemController.notFound)

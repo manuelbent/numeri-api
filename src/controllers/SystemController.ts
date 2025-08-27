@@ -10,22 +10,11 @@ export default class SystemController {
      * @param {Request} _
      * @param {Response} res
      */
-    public async home(_: Request, res: Response) {
+    public async root(_: Request, res: Response) {
         res.status(200).json({
             name: 'numeri',
             version: '0.0.0.0', // This should be replaced with the actual version from package.json or similar
             description: 'Lightweight analytics tool. No overkill, no fuss, just the essentials.',
-        })
-    }
-
-    /**
-     * Responds with a health check status.
-     * @param {Request} _
-     * @param {Response} res
-     */
-    public async healthcheck(_: Request, res: Response) {
-        res.status(200).json({
-            status: 'ok',
         })
     }
 
