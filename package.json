@@ -1,6 +1,6 @@
 {
   "name": "numeri-api",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "API layer for numeri.",
   "main": "dist/server.js",
   "scripts": {

@@ -13,7 +13,7 @@ export default class SystemController {
     public async root(_: Request, res: Response) {
         res.status(200).json({
             name: 'numeri',
-            version: '0.0.0.0', // This should be replaced with the actual version from package.json or similar
+            version: '1.0.0', // to read from the package
             description: 'Lightweight analytics tool. No overkill, no fuss, just the essentials.',
         })
     }
