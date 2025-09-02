@@ -28,7 +28,8 @@ export default class TrackingController {
                 ...req.body,
                 timestamp: req.body.timestamp ?? new Date().toISOString(),
                 $ip: req.ip || req.headers['x-forwarded-for'],
-                $site: req.headers.origin || req.headers.referer || 'unknown-site'
+                $site: req.headers.origin || req.headers.referer || 'unknown-site',
+                $visitorId: req.headers['x-visitor-id'] || 'anonymous',
             }
         })
 
