@@ -1,7 +1,8 @@
 # numeri
 
 Lightweight analytics API. No overkill, no fuss, just the essentials.  
-It is a simple analytics API that lets you track events from your applications and retrieve the data later.  
+
+A simple analytics API that lets you track events from your applications and retrieve the data later.  
 Think of it as a lightweight alternative to complex analytics platforms: you send events, they get stored, you query
 them back.
 
@@ -95,7 +96,7 @@ Save both the `apiKey` and `secret`, you'll need them for tracking and analytics
 
 ### 3. track events
 
-Now you can start tracking events from your application using any custom event names and properties:
+Now you can start tracking events from your application using any custom event names and properties.
 
 ```bash
 # views
@@ -136,6 +137,7 @@ curl -X POST http://localhost:3000/v1/track \
     }
   }'
 ```
+Or, you can use the dedicated client (✨) for easier integration: [numeri-client](https://github.com/manuelbent/numeri-client).
 
 ### 4. retrieve analytics
 
@@ -151,7 +153,6 @@ curl "http://localhost:3000/v1/analytics?eventType=page_view" \
   -H "x-secret-key: your-secret"
 
 # filter by event type and visitor ID
-```bash
 curl "http://localhost:3000/v1/analytics?eventType=click&visitorId=123e8430-e34b-94d6-a412-34942892761" \
   -H "x-secret-key: your-secret"
 ```
