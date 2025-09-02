@@ -12,8 +12,8 @@ export default class GetAnalyticsRequestValidator {
      * @private {ZodObject}
      */
     schema = z.object({
-        eventType: z.string(),
         visitorId: z.string().optional(),
+        eventType: z.string().optional(),
         countryCode: z.string().length(2).toUpperCase().optional(),
         site: z.string().optional(),
         page: z.string().default(String(DEFAULT_PAGE)),
@@ -49,7 +49,7 @@ export default class GetAnalyticsRequestValidator {
         {
             // validate the query, define and set a parsed query (pq) property
             (req as Request&{
-                pq: { eventType: string, page: string, limit: string }
+                pq: { page: string, limit: string }
             }).pq = this.schema.parse(req.query)
         }
 
