@@ -5,14 +5,17 @@ import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../config/constants'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**
- * @class GetAnalyticsValidator
+ * @class GetAnalyticsRequestValidator
  */
-export default class GetAnalyticsValidator {
+export default class GetAnalyticsRequestValidator {
     /**
      * @private {ZodObject}
      */
     schema = z.object({
         eventType: z.string(),
+        visitorId: z.string().optional(),
+        countryCode: z.string().length(2).toUpperCase().optional(),
+        site: z.string().optional(),
         page: z.string().default(String(DEFAULT_PAGE)),
         limit: z.string().default(String(DEFAULT_LIMIT))
     }).strict()

@@ -28,7 +28,7 @@ import ClientService from '../services/ClientService'
 import OneTimeCodeService from '../services/OneTimeCodeService'
 import RedisService from '../services/RedisService'
 // validators
-import GetAnalyticsValidator from '../validators/GetAnalyticsValidator'
+import GetAnalyticsRequestValidator from '../validators/GetAnalyticsRequestValidator'
 import TrackRequestValidator from '../validators/TrackRequestValidator'
 import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'
 import CreateOneTimeCodeRequestValidator from '../validators/CreateOneTimeCodeRequestValidator'
@@ -57,7 +57,7 @@ class Container {
     private _clientRepository?: ClientRepositoryInterface
     private _clientService?: ClientServiceInterface
     private _clientController?: ClientController
-    private _getAnalyticsValidator?: GetAnalyticsValidator
+    private _getAnalyticsRequestValidator?: GetAnalyticsRequestValidator
     private _trackRequestValidator?: TrackRequestValidator
     private _createOneTimeCodeRequestValidator?: CreateOneTimeCodeRequestValidator
     private _oneTimeCodeRepository?: OneTimeCodeRepositoryInterface
@@ -122,8 +122,8 @@ class Container {
         return this._clientController ??= new ClientController(this.clientService)
     }
 
-    public get getAnalyticsValidator(): GetAnalyticsValidator {
-        return this._getAnalyticsValidator ??= new GetAnalyticsValidator(this.clientService)
+    public get getAnalyticsRequestValidator(): GetAnalyticsRequestValidator {
+        return this._getAnalyticsRequestValidator ??= new GetAnalyticsRequestValidator(this.clientService)
     }
 
     public get trackRequestValidator(): TrackRequestValidator {
