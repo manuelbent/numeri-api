@@ -39,6 +39,7 @@ export default class AnalyticsEventService implements AnalyticsEventServiceInter
             },
             {
                 exclude: ['id', 'trackingEventId']
-            })
+            },
+            [['timestamp', 'DESC']])
     }
 }
