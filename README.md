@@ -3,8 +3,7 @@
 Lightweight analytics tool. No overkill, no fuss, just the essentials.  
 
 A simple analytics API that lets you track events from your applications and retrieve the data later.  
-Think of it as a lightweight alternative to complex analytics platforms: you send events, they get stored, you query
-them back.
+Think of it as a lightweight alternative to complex analytics platforms: you send events, they get stored, you query them back.
 
 ## core functionality
 
