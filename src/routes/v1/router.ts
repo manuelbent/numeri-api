@@ -20,6 +20,7 @@ router.post('/clients/register',
 
 // tracking events routes
 router.post('/track',
+    (req: Request, res: Response, next: NextFunction) => ioc.crawlerDetectionMiddleware.handle(req, res, next),
     (req: Request, res: Response, next: NextFunction) => ioc.trackRequestValidator.validate(req, res, next),
     (req: Request, res: Response) => ioc.trackingController.track(req, res)
 )

@@ -37,6 +37,7 @@ import RequestIdMiddleware from '../middlewares/RequestIdMiddleware'
 import ValidationErrorMiddleware from '../middlewares/ValidationErrorMiddleware'
 import MalformedDataMiddleware from '../middlewares/MalformedDataMiddleware'
 import GenericErrorMiddleware from '../middlewares/GenericErrorMiddleware'
+import CrawlerDetectionMiddleware from '../middlewares/CrawlerDetectionMiddlware'
 
 /**
  * Dependency Injection Container.
@@ -48,6 +49,7 @@ class Container {
     private _malformedDataMiddleware?: MalformedDataMiddleware
     private _requestIdMiddleware?: RequestIdMiddleware
     private _genericErrorMiddleware?: GenericErrorMiddleware
+    private _crawlerDetectionMiddleware?: CrawlerDetectionMiddleware
     private _trackingEventRepository?: TrackingEventRepositoryInterface
     private _trackingEventService?: TrackingEventServiceInterface
     private _trackingController?: TrackingController
@@ -84,6 +86,10 @@ class Container {
 
     public get genericErrorMiddleware(): GenericErrorMiddleware {
         return this._genericErrorMiddleware ??= new GenericErrorMiddleware()
+    }
+
+    public get crawlerDetectionMiddleware(): CrawlerDetectionMiddleware {
+        return this._crawlerDetectionMiddleware ??= new CrawlerDetectionMiddleware()
     }
 
     public get trackingEventRepository(): TrackingEventRepositoryInterface {

@@ -31,6 +31,7 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-rate-limit": "^8.0.1",
+    "isbot": "^5.1.30",
     "lru-cache": "^11.1.0",
     "node-cron": "^4.2.0",
     "numeri-core": "github:manuelbent/numeri-core",
