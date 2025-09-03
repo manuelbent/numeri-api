@@ -1,4 +1,10 @@
-# numeri
+<div align="center">
+   <h1>numeri</h1>
+</div>
+
+![Express.js](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white)
+![Static Badge](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=fff)
+![Redis](https://img.shields.io/badge/Redis-DC382D?style=flat&logo=redis&logoColor=white)
 
 No overkill, no fuss, just the essentials.  
 
