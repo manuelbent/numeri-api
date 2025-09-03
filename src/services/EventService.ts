@@ -16,7 +16,7 @@ export default class EventService implements EventServiceInterface {
     ) {}
 
     /**
-     * Enqueues a new tracking event.
+     * Enqueues a new raw event.
      * @param {object} data
      * @returns {Promise<RawEvent>}
      */

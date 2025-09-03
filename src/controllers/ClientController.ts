@@ -3,7 +3,6 @@ import { logger } from 'numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**
- * Handles requests related to analytics events.
  * @class ClientController
  */
 export default class ClientController {

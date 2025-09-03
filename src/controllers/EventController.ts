@@ -20,7 +20,7 @@ export default class EventController {
      * @returns {Promise<void>}
      */
     public async track(req: Request, res: Response): Promise<void> {
-        // build the tracking event and enqueue it for processing
+        // build the raw event and enqueue it for processing
         const { id, uuid } = await this.eventService.enqueue({
             clientId: (req as Request&{ client: Client }).client.id,
             payload: {
@@ -32,15 +32,15 @@ export default class EventController {
             }
         })
 
-        // publish the tracking event to Redis
-        await this.redisService.publish('tracking-events', JSON.stringify({ id }))
+        // publish the raw event to Redis
+        await this.redisService.publish('raw-events', JSON.stringify({ id }))
 
-        // respond with the tracking event uuid
+        // respond with the raw event uuid
         res.status(200).json({ uuid, message: 'Event tracked successfully.' })
     }
 
     /**
-     * Retrieves analytics events.
+     * Retrieves processed events.
      * @param {Request} req
      * @param {Response} res
      * @returns {Promise<void>}

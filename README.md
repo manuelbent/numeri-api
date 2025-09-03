@@ -2,7 +2,7 @@
 
 Lightweight analytics tool. No overkill, no fuss, just the essentials.  
 
-A simple analytics API that lets you track events from your applications and retrieve the data later.  
+A simple analytics tool that lets you track events from your applications and retrieve the data later.  
 Think of it as a lightweight alternative to complex analytics platforms: you send events, they get stored, you query them back.
 
 ## core functionality
@@ -14,7 +14,7 @@ geolocation, referrer, visitor and timestamp.
 **event processing**  
 Using Redis as bus, events are processed by a separate component to ensure fast response times and reliability.
 
-**analytics retrieval**  
+**event retrieval**  
 Analytics data can be queried from `/v1/events` with filtering, pagination, and sorting.
 
 **clients management**  
@@ -91,11 +91,11 @@ curl -X POST "http://localhost:3000/v1/clients/register?code=a1b2c3d4e5f6..." \
 }
 ```
 
-Save both the `apiKey` and `secret`, you'll need them for tracking and analytics.
+Save both the `apiKey` and `secret`, you'll need them for sending and retrieving events.
 
 ### 3. track events
 
-Now you can start tracking events from your application using any custom event names and properties.
+Now you can start sending events from your application using any custom event names and properties.
 
 ```bash
 # views
@@ -138,7 +138,7 @@ curl -X POST http://localhost:3000/v1/events \
 ```
 Or, you can use the dedicated client (✨) for easier integration: [numeri-client](https://github.com/manuelbent/numeri-client).
 
-### 4. retrieve analytics
+### 4. retrieve events
 
 Query your tracked events:
 
@@ -186,8 +186,8 @@ Currently, filtering is not supported on custom nested properties.
 ## authentication
 
 - **admin operations** (generating codes): `Authorization: Bearer {your-admin-bearer-token}`
-- **client tracking** (sending events): `x-api-key: {client-api-key}`
-- **client analytics** (retrieving data): `x-secret-key: {client-secret}`
+- **client write** (sending events): `x-api-key: {client-api-key}`
+- **client read** (retrieving events): `x-secret-key: {client-secret}`
 
 ## API overview
 
