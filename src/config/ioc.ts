@@ -1,35 +1,34 @@
 // common resources
 import {
     ClientRepository,
-    TrackingEventRepository,
-    AnalyticsEventRepository,
+    RawEventRepository,
+    ProcessedEventRepository,
     OneTimeCodeRepository,
     ClientRepositoryInterface,
-    TrackingEventRepositoryInterface,
-    AnalyticsEventRepositoryInterface
+    RawEventRepositoryInterface,
+    ProcessedEventRepositoryInterface
 } from 'numeri-core'
 // interfaces
 import OneTimeCodeRepositoryInterface from 'numeri-core/dist/src/interfaces/OneTimeCodeRepositoryInterface'
 import OneTimeCodeServiceInterface from '../interfaces/OneTimeCodeServiceInterface'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
-import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
-import AnalyticsEventServiceInterface from '../interfaces/AnalyticsEventServiceInterface'
+import RawEventServiceInterface from '../interfaces/RawEventServiceInterface'
+import ProcessedEventServiceInterface from '../interfaces/ProcessedEventServiceInterface'
 import RedisServiceInterface from '../interfaces/RedisServiceInterface'
 // controllers
 import SystemController from '../controllers/SystemController'
-import TrackingController from '../controllers/TrackingController'
-import AnalyticsController from '../controllers/AnalyticsController'
+import EventController from '../controllers/EventController'
 import ClientController from '../controllers/ClientController'
 import OneTimeCodeController from '../controllers/OneTimeCodeController'
 // services
-import TrackingEventService from '../services/TrackingEventService'
-import AnalyticsEventService from '../services/AnalyticsEventService'
+import EventService from '../services/EventService'
+import ProcessedEventService from '../services/ProcessedEventService'
 import ClientService from '../services/ClientService'
 import OneTimeCodeService from '../services/OneTimeCodeService'
 import RedisService from '../services/RedisService'
 // validators
-import GetAnalyticsRequestValidator from '../validators/GetAnalyticsRequestValidator'
-import TrackRequestValidator from '../validators/TrackRequestValidator'
+import RetrieveEventRequestValidator from '../validators/RetrieveEventRequestValidator'
+import CreateEventRequestValidator from '../validators/CreateEventRequestValidator'
 import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'
 import CreateOneTimeCodeRequestValidator from '../validators/CreateOneTimeCodeRequestValidator'
 // middlewares
@@ -50,17 +49,16 @@ class Container {
     private _requestIdMiddleware?: RequestIdMiddleware
     private _genericErrorMiddleware?: GenericErrorMiddleware
     private _crawlerDetectionMiddleware?: CrawlerDetectionMiddleware
-    private _trackingEventRepository?: TrackingEventRepositoryInterface
-    private _trackingEventService?: TrackingEventServiceInterface
-    private _trackingController?: TrackingController
-    private _analyticsEventRepository?: AnalyticsEventRepositoryInterface
-    private _analyticsEventService?: AnalyticsEventServiceInterface
-    private _analyticsController?: AnalyticsController
+    private _eventController?: EventController
+    private _rawEventRepository?: RawEventRepositoryInterface
+    private _rawEventService?: RawEventServiceInterface
+    private _processedEventRepository?: ProcessedEventRepositoryInterface
+    private _processedEventService?: ProcessedEventServiceInterface
     private _clientRepository?: ClientRepositoryInterface
     private _clientService?: ClientServiceInterface
     private _clientController?: ClientController
-    private _getAnalyticsRequestValidator?: GetAnalyticsRequestValidator
-    private _trackRequestValidator?: TrackRequestValidator
+    private _retrieveEventRequestValidator?: RetrieveEventRequestValidator
+    private _createEventRequestValidator?: CreateEventRequestValidator
     private _createOneTimeCodeRequestValidator?: CreateOneTimeCodeRequestValidator
     private _oneTimeCodeRepository?: OneTimeCodeRepositoryInterface
     private _oneTimeCodeService?: OneTimeCodeServiceInterface
@@ -91,29 +89,25 @@ class Container {
     public get crawlerDetectionMiddleware(): CrawlerDetectionMiddleware {
         return this._crawlerDetectionMiddleware ??= new CrawlerDetectionMiddleware()
     }
-
-    public get trackingEventRepository(): TrackingEventRepositoryInterface {
-        return this._trackingEventRepository ??= new TrackingEventRepository()
+    
+    public get eventController(): EventController {
+        return this._eventController ??= new EventController(this.rawEventService, this.redisService)
     }
 
-    public get trackingEventService(): TrackingEventServiceInterface {
-        return this._trackingEventService ??= new TrackingEventService(this.trackingEventRepository)
+    public get rawEventRepository(): RawEventRepositoryInterface {
+        return this._rawEventRepository ??= new RawEventRepository()
     }
 
-    public get trackingController(): TrackingController {
-        return this._trackingController ??= new TrackingController(this.trackingEventService, this.redisService)
+    public get rawEventService(): RawEventServiceInterface {
+        return this._rawEventService ??= new EventService(this.rawEventRepository)
     }
 
-    public get analyticsEventRepository(): AnalyticsEventRepositoryInterface {
-        return this._analyticsEventRepository ??= new AnalyticsEventRepository()
+    public get processedEventRepository(): ProcessedEventRepositoryInterface {
+        return this._processedEventRepository ??= new ProcessedEventRepository()
     }
 
-    public get analyticsEventService(): AnalyticsEventServiceInterface {
-        return this._analyticsEventService ??= new AnalyticsEventService(this.analyticsEventRepository)
-    }
-
-    public get analyticsController(): AnalyticsController {
-        return this._analyticsController ??= new AnalyticsController(this.analyticsEventService)
+    public get processedEventService(): ProcessedEventServiceInterface {
+        return this._processedEventService ??= new ProcessedEventService(this.processedEventRepository)
     }
 
     public get clientRepository(): ClientRepositoryInterface {
@@ -128,12 +122,12 @@ class Container {
         return this._clientController ??= new ClientController(this.clientService)
     }
 
-    public get getAnalyticsRequestValidator(): GetAnalyticsRequestValidator {
-        return this._getAnalyticsRequestValidator ??= new GetAnalyticsRequestValidator(this.clientService)
+    public get retrieveEventRequestValidator(): RetrieveEventRequestValidator {
+        return this._retrieveEventRequestValidator ??= new RetrieveEventRequestValidator(this.clientService)
     }
 
-    public get trackRequestValidator(): TrackRequestValidator {
-        return this._trackRequestValidator ??= new TrackRequestValidator(this.clientService)
+    public get createEventRequestValidator(): CreateEventRequestValidator {
+        return this._createEventRequestValidator ??= new CreateEventRequestValidator(this.clientService)
     }
 
     public get createOneTimeCodeRequestValidator(): CreateOneTimeCodeRequestValidator {
@@ -171,8 +165,8 @@ class Container {
     }
 
     // setter to allow mocking in tests
-    public set trackingEventRepository(repository: TrackingEventRepositoryInterface) {
-        this._trackingEventRepository = repository
+    public set rawEventRepository(repository: RawEventRepositoryInterface) {
+        this._rawEventRepository = repository
     }
 
     // setter to allow mocking in tests

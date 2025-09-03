@@ -5,9 +5,9 @@ import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../config/constants'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**
- * @class GetAnalyticsRequestValidator
+ * @class RetrieveEventRequestValidator
  */
-export default class GetAnalyticsRequestValidator {
+export default class RetrieveEventRequestValidator {
     /**
      * @private {ZodObject}
      */

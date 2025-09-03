@@ -1,35 +1,35 @@
-import { AnalyticsEvent, AnalyticsEventRepositoryInterface } from 'numeri-core'
-import AnalyticsEventServiceInterface from '../interfaces/AnalyticsEventServiceInterface'
+import { ProcessedEvent, ProcessedEventRepositoryInterface } from 'numeri-core'
+import ProcessedEventServiceInterface from '../interfaces/ProcessedEventServiceInterface'
 
 /**
- * @class AnalyticsEventService
+ * @class ProcessedEventService
  */
-export default class AnalyticsEventService implements AnalyticsEventServiceInterface {
+export default class ProcessedEventService implements ProcessedEventServiceInterface {
     /**
      * @constructor
-     * @param {AnalyticsEventRepositoryInterface} repository
+     * @param {ProcessedEventRepositoryInterface} repository
      */
-    constructor(private repository: AnalyticsEventRepositoryInterface) {}
+    constructor(private repository: ProcessedEventRepositoryInterface) {}
 
     /**
-     * Creates a new AnalyticsEvent.
+     * Creates a new ProcessedEvent.
      * @param {object} data
      */
-    async create(data: object): Promise<AnalyticsEvent> {
+    async create(data: object): Promise<ProcessedEvent> {
         return this.repository.create(data)
     }
 
     /**
-     * Retrieves AnalyticsEvents based on the client ID and query.
+     * Retrieves ProcessedEvents based on the client ID and query.
      * @param {number} id
      * @param {object} query
-     * @return {Promise<AnalyticsEvent[]>}
+     * @return {Promise<ProcessedEvent[]>}
      */
     async loadByClient(id: number, {
         page,
         limit,
         ...where
-    }: Record<string, string|number>): Promise<AnalyticsEvent[]> {
+    }: Record<string, string|number>): Promise<ProcessedEvent[]> {
         return this.repository.loadByClient(
             id,
             where,
@@ -38,7 +38,7 @@ export default class AnalyticsEventService implements AnalyticsEventServiceInter
                 offset: (+page - 1) * +limit
             },
             {
-                exclude: ['id', 'trackingEventId']
+                exclude: ['id', 'rawEventId']
             },
             [['timestamp', 'DESC']])
     }

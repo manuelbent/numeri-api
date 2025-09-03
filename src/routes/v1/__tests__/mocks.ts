@@ -1,5 +1,5 @@
 import { vi } from 'vitest'
-import { Client, OneTimeCode, TrackingEvent } from 'numeri-core'
+import { Client, OneTimeCode, RawEvent } from 'numeri-core'
 import RepositoryInterface from 'numeri-core/dist/src/interfaces/RepositoryInterface'
 
 class MockRepository<T> implements RepositoryInterface<T> {
@@ -55,9 +55,9 @@ export class MockOneTimeCodeRepository extends MockRepository<OneTimeCode> {
 export class MockClientRepository extends MockRepository<Client> {
 }
 
-export class MockTrackingEventRepository extends MockRepository<TrackingEvent> {
-    async create(data: object): Promise<TrackingEvent> {
-        const item = data as TrackingEvent
+export class MockRawEventRepository extends MockRepository<RawEvent> {
+    async create(data: object): Promise<RawEvent> {
+        const item = data as RawEvent
         item.uuid = crypto.randomUUID()
         item.createdAt = new Date()
         this.items.push(item)

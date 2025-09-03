@@ -1,19 +1,18 @@
 import { Request, Response } from 'express'
 import { Client } from 'numeri-core'
-import TrackingEventServiceInterface from '../interfaces/TrackingEventServiceInterface'
+import EventServiceInterface from '../interfaces/EventServiceInterface'
 import RedisServiceInterface from '../interfaces/RedisServiceInterface'
 
 /**
- * @class TrackingController
- * @description Ingests tracking events and publishes them to Redis for further processing.
+ * @class EventController
  */
-export default class TrackingController {
+export default class EventController {
     /**
      * @constructor
-     * @param {TrackingEventServiceInterface} trackingEventService
+     * @param {EventServiceInterface} eventService
      * @param {RedisServiceInterface} redisService
      */
-    constructor(private trackingEventService: TrackingEventServiceInterface, private redisService: RedisServiceInterface) {}
+    constructor(private eventService: EventServiceInterface, private redisService: RedisServiceInterface) {}
 
     /**
      * @param {Request} req
@@ -22,7 +21,7 @@ export default class TrackingController {
      */
     public async track(req: Request, res: Response): Promise<void> {
         // build the tracking event and enqueue it for processing
-        const { id, uuid } = await this.trackingEventService.enqueue({
+        const { id, uuid } = await this.eventService.enqueue({
             clientId: (req as Request&{ client: Client }).client.id,
             payload: {
                 ...req.body,
@@ -38,5 +37,18 @@ export default class TrackingController {
 
         // respond with the tracking event uuid
         res.status(200).json({ uuid, message: 'Event tracked successfully.' })
+    }
+
+    /**
+     * Retrieves analytics events.
+     * @param {Request} req
+     * @param {Response} res
+     * @returns {Promise<void>}
+     */
+    async retrieve(req: Request, res: Response): Promise<void> {
+        const { id } = (req as Request&{ client: Client }).client
+        const { pq } = req as Request&{ pq: Record<string, string|number> }
+        const events = await this.eventService.loadByClientId(id, pq)
+        res.status(200).json(events)
     }
 }

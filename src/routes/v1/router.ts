@@ -19,16 +19,16 @@ router.post('/clients/register',
 )
 
 // tracking events routes
-router.post('/track',
+router.post('/events',
     (req: Request, res: Response, next: NextFunction) => ioc.crawlerDetectionMiddleware.handle(req, res, next),
-    (req: Request, res: Response, next: NextFunction) => ioc.trackRequestValidator.validate(req, res, next),
-    (req: Request, res: Response) => ioc.trackingController.track(req, res)
+    (req: Request, res: Response, next: NextFunction) => ioc.createEventRequestValidator.validate(req, res, next),
+    (req: Request, res: Response) => ioc.eventController.track(req, res)
 )
 
 // analytics routes
-router.get('/analytics',
-    (req: Request, res: Response, next: NextFunction) => ioc.getAnalyticsRequestValidator.validate(req, res, next),
-    (req: Request, res: Response) => ioc.analyticsController.get(req, res)
+router.get('/events',
+    (req: Request, res: Response, next: NextFunction) => ioc.retrieveEventRequestValidator.validate(req, res, next),
+    (req: Request, res: Response) => ioc.eventController.retrieve(req, res)
 )
 
 export default router

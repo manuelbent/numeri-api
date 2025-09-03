@@ -1,9 +1,9 @@
-import { AnalyticsEvent } from 'numeri-core'
+import { ProcessedEvent } from 'numeri-core'
 
 /**
- * @interface AnalyticsEventServiceInterface
+ * @interface ProcessedEventServiceInterface
  */
-export default interface AnalyticsEventServiceInterface {
-    create(data: object): Promise<AnalyticsEvent>
-    loadByClient(id: number, query: object): Promise<AnalyticsEvent[]>
+export default interface ProcessedEventServiceInterface {
+    create(data: object): Promise<ProcessedEvent>
+    loadByClient(id: number, query: object): Promise<ProcessedEvent[]>
 }

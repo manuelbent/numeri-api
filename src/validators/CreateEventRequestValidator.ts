@@ -5,9 +5,9 @@ import { Client } from 'numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**
- * @class TrackRequestValidator
+ * @class CreateEventRequestValidator
  */
-export default class TrackRequestValidator {
+export default class CreateEventRequestValidator {
     /**
      * @private {ZodObject}
      */

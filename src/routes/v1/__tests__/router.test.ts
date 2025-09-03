@@ -4,26 +4,26 @@ import request from 'supertest'
 import {
     ClientRepositoryInterface,
     OneTimeCodeRepositoryInterface,
-    TrackingEventRepositoryInterface
+    RawEventRepositoryInterface
 } from 'numeri-core'
 import app from '../../../app'
 import ioc from '../../../config/ioc'
 import { limiter } from '../../../config/rateLimit'
-import { MockClientRepository, MockOneTimeCodeRepository, MockRedisService, MockTrackingEventRepository } from './mocks'
+import { MockClientRepository, MockOneTimeCodeRepository, MockRedisService, MockRawEventRepository } from './mocks'
 
 describe('router', () => {
     beforeAll(() => {
         // mock repositories
         ioc.oneTimeCodeRepository = new MockOneTimeCodeRepository()
         ioc.clientRepository = new MockClientRepository()
-        ioc.trackingEventRepository = new MockTrackingEventRepository()
+        ioc.rawEventRepository = new MockRawEventRepository()
     })
 
     beforeEach(() => {
         limiter.resetKey('::/56') // local test ip
         ;(ioc.oneTimeCodeRepository as OneTimeCodeRepositoryInterface&{ clear: () => void }).clear()
         ;(ioc.clientRepository as ClientRepositoryInterface&{ clear: () => void }).clear()
-        ;(ioc.trackingEventRepository as TrackingEventRepositoryInterface&{ clear: () => void }).clear()
+        ;(ioc.rawEventRepository as RawEventRepositoryInterface&{ clear: () => void }).clear()
     })
 
     describe('/codes', () => {
@@ -131,21 +131,21 @@ describe('router', () => {
         })
     })
 
-    describe('/track', () => {
+    describe('/events', () => {
         it('must block requests with no apiKey header', async () => {
-            const res = await request(app).post('/v1/track').send({})
+            const res = await request(app).post('/v1/events').send({})
             expect(res.status).toBe(400)
             expect(res.body).toHaveProperty('error', 'Missing API key.')
         })
 
         it('must block requests with no Origin header', async () => {
-            const res = await request(app).post('/v1/track').set('x-api-key', 'test').send({})
+            const res = await request(app).post('/v1/events').set('x-api-key', 'test').send({})
             expect(res.status).toBe(400)
             expect(res.body).toHaveProperty('error', 'Missing Origin header.')
         })
 
         it('must block requests with an invalid apiKey header', async () => {
-            const res = await request(app).post('/v1/track')
+            const res = await request(app).post('/v1/events')
                 .set('Origin', 'example.com')
                 .set('x-api-key', 'invalid')
                 .send({})
@@ -160,7 +160,7 @@ describe('router', () => {
                 ownerEmail: 'test.client@example.com',
                 allowedOrigins: ['example.com']
             })
-            const res = await request(app).post('/v1/track')
+            const res = await request(app).post('/v1/events')
                 .set('x-api-key', apiKey)
                 .set('Origin', 'invalid.com')
                 .send({ event: 'test_event' })
@@ -175,7 +175,7 @@ describe('router', () => {
                 ownerEmail: 'test.client@example.com',
                 allowedOrigins: ['example.com']
             })
-            const res = await request(app).post('/v1/track')
+            const res = await request(app).post('/v1/events')
                 .set('Origin', 'example.com')
                 .set('x-api-key', apiKey)
                 .send({ invalid: 'body' })
@@ -194,7 +194,7 @@ describe('router', () => {
                 ownerEmail: 'test.client@example.com',
                 allowedOrigins: ['example.com']
             })
-            const res = await request(app).post('/v1/track')
+            const res = await request(app).post('/v1/events')
                 .set('Origin', 'example.com')
                 .set('x-api-key', apiKey)
                 .send({
