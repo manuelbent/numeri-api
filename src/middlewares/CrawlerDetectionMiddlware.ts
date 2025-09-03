@@ -12,10 +12,18 @@ export default class CrawlerDetectionMiddleware {
      * @param {NextFunction }next
      */
     public async handle(req: Request, res: Response, next: NextFunction) {
-        if (process.env.NODE_ENV !== 'dev' && isbot(req.get('user-agent'))) {
-            res.status(403).json({ error: 'Thou shalt not pass, bot!' })
-        } else {
-            next()
+        const userAgent = req.headers['user-agent'] || ''
+
+        // allow postman requests
+        if (userAgent.toLowerCase().includes('postman')) {
+            return next()
         }
+
+        // block all known bots
+        if (isbot(userAgent)) {
+            return res.status(403).json({ error: 'Thou shalt not pass, bot!' })
+        }
+
+        next()
     }
 }
