@@ -18,14 +18,14 @@ router.post('/clients/register',
     (req: Request, res: Response) => ioc.clientController.register(req, res)
 )
 
-// tracking events routes
+// tracking raw events routes
 router.post('/events',
     (req: Request, res: Response, next: NextFunction) => ioc.crawlerDetectionMiddleware.handle(req, res, next),
     (req: Request, res: Response, next: NextFunction) => ioc.createEventRequestValidator.validate(req, res, next),
     (req: Request, res: Response) => ioc.eventController.track(req, res)
 )
 
-// analytics routes
+// retrieve processed events routes
 router.get('/events',
     (req: Request, res: Response, next: NextFunction) => ioc.retrieveEventRequestValidator.validate(req, res, next),
     (req: Request, res: Response) => ioc.eventController.retrieve(req, res)
