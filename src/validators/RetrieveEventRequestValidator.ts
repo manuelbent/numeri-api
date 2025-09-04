@@ -9,6 +9,12 @@ import ClientServiceInterface from '../interfaces/ClientServiceInterface'
  */
 export default class RetrieveEventRequestValidator {
     /**
+     * @description Allowed query parameters.
+     * @private
+     */
+    private params = new Set(['visitorId', 'eventType', 'countryCode', 'site', 'page', 'limit'])
+
+    /**
      * @private {ZodObject}
      */
     schema = z.object({
@@ -17,8 +23,20 @@ export default class RetrieveEventRequestValidator {
         countryCode: z.string().length(2).toUpperCase().optional(),
         site: z.string().optional(),
         page: z.string().default(String(DEFAULT_PAGE)),
-        limit: z.string().default(String(DEFAULT_LIMIT))
-    }).strict()
+        limit: z.string().default(String(DEFAULT_LIMIT)),
+    }).passthrough().refine((obj) => {
+        for (const key in obj) {
+            if (!this.params.has(key) && !key.startsWith('properties.')) {
+                throw new z.ZodError([{
+                    code: z.ZodIssueCode.unrecognized_keys,
+                    keys: [key],
+                    path: [],
+                    message: `Unrecognized key(s) in object: '${key}'`
+                }])
+            }
+        }
+        return true
+    })
 
     /**
      * @constructor

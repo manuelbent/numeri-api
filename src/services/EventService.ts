@@ -34,7 +34,18 @@ export default class EventService implements EventServiceInterface {
         page,
         limit,
         ...where
-    }: Record<string, string|number>): Promise<ProcessedEvent[]> {
+    }: Record<string, string|number|object>): Promise<ProcessedEvent[]> {
+        // handle nested JSON properties filters
+        Object.keys(where).forEach(key => {
+            if (key.includes('.')) {
+                const column = key.split('.')[0]
+                const path = key.replace(column, '$')
+                const value = where[key]
+                where.$json = { column, path, value }
+                delete where[key]
+            }
+        })
+
         return this.processedEventRepository.getByClientId(
             id,
             where,
