@@ -25,7 +25,9 @@ Any event can be sent with custom properties to the POST `/v1/events` endpoint a
 Using Redis as bus, events are processed by a separate component to ensure fast response times and reliability.
 
 **Retrieval**  
-Processed events can be queried from the GET `/v1/events` endpoint with upper level (for now) filtering, pagination, and sorting.
+Processed events can be queried from the GET `/v1/events` endpoint filtering, pagination, and sorting.  
+Filtering is possible on any property of the event, including custom nested ones.  
+e.g. `?properties.some.nested.property.key=value`.
 
 ## Local development
 
