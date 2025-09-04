@@ -28,13 +28,12 @@ export default class EventService implements EventServiceInterface {
      * Retrieves ProcessedEvents based on the client ID and query.
      * @param {number} id
      * @param {object} query
+     * @param {string[]} fields
      * @return {Promise<ProcessedEvent[]>}
      */
-    async loadByClientId(id: number, {
-        page,
-        limit,
-        ...where
-    }: Record<string, string|number|object>): Promise<ProcessedEvent[]> {
+    async loadByClientId(id: number, query: Record<string, string|number|object>, fields?: string[]): Promise<ProcessedEvent[]> {
+        const { page, limit, ...where } = query
+
         // handle nested JSON properties filters
         Object.keys(where).forEach(key => {
             if (key.includes('.')) {
@@ -53,9 +52,7 @@ export default class EventService implements EventServiceInterface {
                 limit,
                 offset: (+page - 1) * +limit
             },
-            {
-                exclude: ['id', 'rawEventId']
-            },
+            fields,
             [['timestamp', 'DESC']])
     }
 }

@@ -5,5 +5,5 @@ import { ProcessedEvent, RawEvent } from 'numeri-core'
  */
 export default interface EventServiceInterface {
     enqueue(data: object): Promise<RawEvent>
-    loadByClientId(id: number, query: Record<string, string|number>): Promise<ProcessedEvent[]>
+    loadByClientId(id: number, query: Query, fields?: Fields): Promise<ProcessedEvent[]>
 }

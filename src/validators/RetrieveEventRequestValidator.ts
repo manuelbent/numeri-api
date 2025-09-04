@@ -12,7 +12,13 @@ export default class RetrieveEventRequestValidator {
      * @description Allowed query parameters.
      * @private
      */
-    private params = new Set(['visitorId', 'eventType', 'countryCode', 'site', 'page', 'limit'])
+    private params = new Set(['visitorId', 'eventType', 'countryCode', 'site', 'fields', 'page', 'limit'])
+
+    /**
+     * @description Allowed fields to be returned.
+     * @private
+     */
+    private fields = ['visitorId', 'eventType', 'site', 'geolocation', 'countryCode', 'timestamp', 'properties'] as const
 
     /**
      * @param {string} key
@@ -33,6 +39,7 @@ export default class RetrieveEventRequestValidator {
         eventType: z.string().optional(),
         countryCode: z.string().length(2).toUpperCase().optional(),
         site: z.string().optional(),
+        fields: z.string().transform(s => s.split(',')).pipe(z.array(z.enum(this.fields))).optional(),
         page: z.string().default(String(DEFAULT_PAGE)),
         limit: z.string().default(String(DEFAULT_LIMIT)),
     }).passthrough().refine((obj) => {
@@ -75,11 +82,10 @@ export default class RetrieveEventRequestValidator {
             (req as Request&{ client: Client }).client = client
         }
 
+        const { fields, ...query } = this.schema.parse(req.query)
+
         {
-            // validate the query, define and set a parsed query (pq) property
-            (req as Request&{
-                pq: { page: string, limit: string }
-            }).pq = this.schema.parse(req.query)
+            (req as Request&{ args: RequestArgs }).args = { fields, query }
         }
 
         next()

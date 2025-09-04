@@ -47,8 +47,8 @@ export default class EventController {
      */
     async retrieve(req: Request, res: Response): Promise<void> {
         const { id } = (req as Request&{ client: Client }).client
-        const { pq } = req as Request&{ pq: Record<string, string|number> }
-        const events = await this.eventService.loadByClientId(id, pq)
+        const { fields, query } = (req as Request&{ args: RequestArgs }).args
+        const events = await this.eventService.loadByClientId(id, query, fields)
         res.status(200).json(events)
     }
 }
