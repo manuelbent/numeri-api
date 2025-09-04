@@ -15,6 +15,17 @@ export default class RetrieveEventRequestValidator {
     private params = new Set(['visitorId', 'eventType', 'countryCode', 'site', 'page', 'limit'])
 
     /**
+     * @param {string} key
+     * @returns {boolean}
+     * @private
+     */
+    private isKeySupported(key: string): boolean {
+        return this.params.has(key) ||
+            key.startsWith('properties.') ||
+            key.startsWith('geolocation.')
+    }
+
+    /**
      * @private {ZodObject}
      */
     schema = z.object({
@@ -26,7 +37,7 @@ export default class RetrieveEventRequestValidator {
         limit: z.string().default(String(DEFAULT_LIMIT)),
     }).passthrough().refine((obj) => {
         for (const key in obj) {
-            if (!this.params.has(key) && !key.startsWith('properties.')) {
+            if (!this.isKeySupported(key)) {
                 throw new z.ZodError([{
                     code: z.ZodIssueCode.unrecognized_keys,
                     keys: [key],
