@@ -26,6 +26,7 @@ jobs:
           [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
           cd /var/www/numeri-api
           git pull
+          nvm use
           npm ci
           npm run build
           npm run migrate:up
