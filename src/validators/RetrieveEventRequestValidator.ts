@@ -40,8 +40,8 @@ export default class RetrieveEventRequestValidator {
         countryCode: z.string().length(2).toUpperCase().optional(),
         site: z.string().optional(),
         fields: z.string().transform(s => s.split(',')).pipe(z.array(z.enum(this.fields))).optional(),
-        from_date: z.string().datetime({ offset: false }).optional(),
-        to_date: z.string().datetime({ offset: false }).optional(),
+        from_date: z.coerce.date().optional(),
+        to_date: z.coerce.date().optional(),
         page: z.string().default(String(DEFAULT_PAGE)),
         limit: z.string().default(String(DEFAULT_LIMIT)),
     }).passthrough().refine((obj) => {
