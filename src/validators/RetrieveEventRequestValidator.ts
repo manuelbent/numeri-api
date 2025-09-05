@@ -12,7 +12,7 @@ export default class RetrieveEventRequestValidator {
      * @description Allowed query parameters.
      * @private
      */
-    private params = new Set(['visitorId', 'eventType', 'countryCode', 'site', 'fields', 'page', 'limit'])
+    private params = new Set(['visitorId', 'eventType', 'countryCode', 'site', 'from_date', 'to_date', 'fields', 'page', 'limit'])
 
     /**
      * @description Allowed fields to be returned.
@@ -40,6 +40,8 @@ export default class RetrieveEventRequestValidator {
         countryCode: z.string().length(2).toUpperCase().optional(),
         site: z.string().optional(),
         fields: z.string().transform(s => s.split(',')).pipe(z.array(z.enum(this.fields))).optional(),
+        from_date: z.string().datetime({ offset: true }).optional(),
+        to_date: z.string().datetime({ offset: true }).optional(),
         page: z.string().default(String(DEFAULT_PAGE)),
         limit: z.string().default(String(DEFAULT_LIMIT)),
     }).passthrough().refine((obj) => {
