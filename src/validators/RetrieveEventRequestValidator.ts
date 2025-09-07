@@ -12,13 +12,13 @@ export default class RetrieveEventRequestValidator {
      * @description Allowed query parameters.
      * @private
      */
-    private params = new Set(['visitorId', 'eventType', 'countryCode', 'site', 'from_date', 'to_date', 'fields', 'page', 'limit'])
+    private params = new Set(['visitorId', 'type', 'countryCode', 'site', 'from_date', 'to_date', 'fields', 'page', 'limit'])
 
     /**
      * @description Allowed fields to be returned.
      * @private
      */
-    private fields = ['visitorId', 'eventType', 'site', 'geolocation', 'countryCode', 'timestamp', 'properties'] as const
+    private fields = ['visitorId', 'type', 'site', 'geolocation', 'countryCode', 'timestamp', 'properties'] as const
 
     /**
      * @param {string} key
@@ -36,7 +36,7 @@ export default class RetrieveEventRequestValidator {
      */
     schema = z.object({
         visitorId: z.string().optional(),
-        eventType: z.string().optional(),
+        type: z.string().optional(),
         countryCode: z.string().length(2).toUpperCase().optional(),
         site: z.string().optional(),
         fields: z.string().transform(s => s.split(',')).pipe(z.array(z.enum(this.fields))).optional(),

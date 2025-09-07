@@ -27,9 +27,9 @@ Using Redis as bus, events are processed by a separate component to ensure fast 
 **Retrieval**  
 Processed events can be queried from the GET `/v1/events` endpoint filtering, pagination, and sorting.  
 Filtering is possible on any property of the event, including custom nested ones.  
-e.g. `?eventType=clik&properties.some.nested.property.key=value`.  
+e.g. `?type=clik&properties.some.nested.property.key=value`.  
 You can also pass a `fields` parameter to only get back the root level properties you need.  
-e.g. `?fields=visitorId,eventType,timestamp`.
+e.g. `?fields=visitorId,type,timestamp`.
 
 ## Local development
 
