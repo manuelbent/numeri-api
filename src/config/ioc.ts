@@ -25,6 +25,8 @@ import ClientController from '../controllers/ClientController'
 import EventServiceInterface from '../interfaces/EventServiceInterface'
 import EventService from '../services/EventService'
 import EventController from '../controllers/EventController'
+// insight components
+import InsightController from '../controllers/InsightController'
 // middlewares
 import CrawlerDetectionMiddleware from '../middlewares/CrawlerDetectionMiddlware'
 import MalformedDataMiddleware from '../middlewares/MalformedDataMiddleware'
@@ -36,6 +38,7 @@ import CreateOneTimeCodeRequestValidator from '../validators/CreateOneTimeCodeRe
 import RegisterClientRequestValidator from '../validators/RegisterClientRequestValidator'
 import CreateEventRequestValidator from '../validators/CreateEventRequestValidator'
 import RetrieveEventRequestValidator from '../validators/RetrieveEventRequestValidator'
+import RetrieveInsightRequestValidator from '../validators/RetrieveInsightRequestValidator'
 
 /**
  * Dependency Injection Container.
@@ -58,6 +61,8 @@ class Container {
     private _processedEventRepository?: ProcessedEventRepositoryInterface
     private _eventService?: EventServiceInterface
     private _eventController?: EventController
+    // insight components
+    private _insightController?: InsightController
     // middlewares
     private _crawlerDetectionMiddleware?: CrawlerDetectionMiddleware
     private _malformedDataMiddleware?: MalformedDataMiddleware
@@ -69,6 +74,7 @@ class Container {
     private _registerClientRequestValidator?: RegisterClientRequestValidator
     private _createEventRequestValidator?: CreateEventRequestValidator
     private _retrieveEventRequestValidator?: RetrieveEventRequestValidator
+    private _retrieveInsightRequestValidator?: RetrieveInsightRequestValidator
 
     public get systemController(): SystemController {
         return this._systemController ??= new SystemController()
@@ -114,6 +120,10 @@ class Container {
         return this._eventController ??= new EventController(this.eventService, this.redisService)
     }
 
+    public get insightController(): InsightController {
+        return this._insightController ??= new InsightController()
+    }
+
     public get crawlerDetectionMiddleware(): CrawlerDetectionMiddleware {
         return this._crawlerDetectionMiddleware ??= new CrawlerDetectionMiddleware()
     }
@@ -148,6 +158,10 @@ class Container {
 
     public get retrieveEventRequestValidator(): RetrieveEventRequestValidator {
         return this._retrieveEventRequestValidator ??= new RetrieveEventRequestValidator(this.clientService)
+    }
+
+    public get retrieveInsightRequestValidator(): RetrieveInsightRequestValidator {
+        return this._retrieveInsightRequestValidator ??= new RetrieveInsightRequestValidator(this.clientService)
     }
 
     public get redisService(): RedisServiceInterface {

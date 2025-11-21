@@ -31,4 +31,10 @@ router.get('/events',
     (req: Request, res: Response) => ioc.eventController.retrieve(req, res)
 )
 
+// insights routes
+router.get('/insights',
+    (req: Request, res: Response, next: NextFunction) => ioc.retrieveInsightRequestValidator.validate(req, res, next),
+    (req: Request, res: Response) => ioc.insightController.retrieve(req, res)
+)
+
 export default router
