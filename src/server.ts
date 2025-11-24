@@ -3,6 +3,7 @@ import 'dotenv/config'
 import os from 'os'
 import cluster from 'cluster'
 import { logger } from 'numeri-core'
+import { connect } from './config/redis'
 
 import app from './app'
 
@@ -21,6 +22,9 @@ if (cluster.isPrimary) {
         cluster.fork()
     })
 } else {
+    // connect to redis
+    connect().catch(logger.error)
+    // start the server
     app.listen(port, () => {
         logger.info(`Worker ${process.pid} running on port ${port}...`)
     })
