@@ -1,9 +1,13 @@
 import express from 'express'
 import cors from 'cors'
+import { logger } from 'numeri-core'
 
-import './config/redis'
 import ioc from './config/ioc'
 import routes from './routes/router'
+import { connect } from './config/redis'
+
+// connect to redis
+connect().catch(logger.error)
 
 const app = express()
 app.set('trust proxy', true)
