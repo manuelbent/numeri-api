@@ -23,7 +23,7 @@ if (cluster.isPrimary) {
     })
 } else {
     // connect to redis
-    connect().catch(logger.error)
+    connect(process.pid).catch(logger.error)
     // start the server
     app.listen(port, () => {
         logger.info(`Worker ${process.pid} running on port ${port}...`)

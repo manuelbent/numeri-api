@@ -3,11 +3,11 @@ import { logger } from 'numeri-core'
 
 export const client = createClient({ url: process.env.REDIS_URL })
 
-export const connect = async () => {
+export const connect = async (pid: number) => {
     try {
         await client.connect()
-        logger.info('Redis connection established successfully')
+        logger.info(`Redis connection established successfully by process ${pid}`)
     } catch (err) {
-        logger.error(err, 'Something went wrong while connecting to Redis')
+        logger.error(err, `Something went wrong while connecting to Redis by process ${pid}`)
     }
 }
