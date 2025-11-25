@@ -1,5 +1,5 @@
 import crypto from 'crypto'
-import { Client, ClientRepositoryInterface } from 'numeri-core'
+import { Client, ClientRepositoryInterface } from '@manuelbent/numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**

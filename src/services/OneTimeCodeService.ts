@@ -1,7 +1,7 @@
 import crypto from 'crypto'
-import { OneTimeCode, OneTimeCodeRepository } from 'numeri-core'
+import { OneTimeCode } from '@manuelbent/numeri-core'
 import OneTimeCodeServiceInterface from '../interfaces/OneTimeCodeServiceInterface'
-import OneTimeCodeRepositoryInterface from 'numeri-core/dist/src/interfaces/OneTimeCodeRepositoryInterface'
+import OneTimeCodeRepositoryInterface from '@manuelbent/numeri-core/dist/src/interfaces/OneTimeCodeRepositoryInterface'
 
 /**
  * @class OneTimeCodeService

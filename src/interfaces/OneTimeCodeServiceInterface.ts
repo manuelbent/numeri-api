@@ -1,4 +1,4 @@
-import { OneTimeCode } from 'numeri-core'
+import { OneTimeCode } from '@manuelbent/numeri-core'
 
 /**
  * @interface OneTimeCodeServiceInterface

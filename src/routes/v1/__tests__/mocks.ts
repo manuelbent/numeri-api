@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
-import { Client, OneTimeCode, RawEvent } from 'numeri-core'
-import RepositoryInterface from 'numeri-core/dist/src/interfaces/RepositoryInterface'
+import { Client, OneTimeCode, RawEvent } from '@manuelbent/numeri-core'
+import RepositoryInterface from '@manuelbent/numeri-core/dist/src/interfaces/RepositoryInterface'
 
 class MockRepository<T> implements RepositoryInterface<T> {
     protected items: T[] = []

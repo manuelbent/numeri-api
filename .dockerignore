@@ -1,0 +1,11 @@
+node_modules
+dist
+.git
+.gitignore
+README.md
+PRIVACY.md
+todos
+dump.rdb
+*.test.ts
+__tests__
+vitest.config.mts

@@ -1,4 +1,4 @@
-import { Client } from 'numeri-core'
+import { Client } from '@manuelbent/numeri-core'
 
 /**
  * @interface ClientServiceInterface

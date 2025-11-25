@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { Client } from 'numeri-core'
+import { Client } from '@manuelbent/numeri-core'
 import EventServiceInterface from '../interfaces/EventServiceInterface'
 import RedisServiceInterface from '../interfaces/RedisServiceInterface'
 

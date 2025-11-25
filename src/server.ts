@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-import { logger } from 'numeri-core'
+import { logger } from '@manuelbent/numeri-core'
 
 import app from './app'
 import { connect } from './config/redis'

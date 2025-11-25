@@ -5,7 +5,7 @@ import {
     ClientRepositoryInterface,
     OneTimeCodeRepositoryInterface,
     RawEventRepositoryInterface
-} from 'numeri-core'
+} from '@manuelbent/numeri-core'
 import app from '../../../app'
 import ioc from '../../../config/ioc'
 import { limiter } from '../../../config/rateLimit'

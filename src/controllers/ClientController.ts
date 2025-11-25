@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { logger } from 'numeri-core'
+import { logger } from '@manuelbent/numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**

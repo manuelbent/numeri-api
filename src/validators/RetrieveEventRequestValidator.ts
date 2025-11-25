@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { z } from 'zod'
-import { Client } from 'numeri-core'
+import { Client } from '@manuelbent/numeri-core'
 import { DEFAULT_LIMIT, DEFAULT_PAGE } from '../config/constants'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 

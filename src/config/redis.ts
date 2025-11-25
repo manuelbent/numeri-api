@@ -1,5 +1,5 @@
 import { createClient } from 'redis'
-import { logger } from 'numeri-core'
+import { logger } from '@manuelbent/numeri-core'
 
 export const client = createClient({ url: process.env.REDIS_URL })
 

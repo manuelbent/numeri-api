@@ -9,6 +9,7 @@ node_modules
 
 # local files
 .env
+.npmrc
 dump.rdb
 app.log
 todos

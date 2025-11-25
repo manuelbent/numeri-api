@@ -8,7 +8,7 @@ import {
     ProcessedEventRepositoryInterface,
     OneTimeCodeRepository,
     OneTimeCodeRepositoryInterface
-} from 'numeri-core'
+} from '@manuelbent/numeri-core'
 // system components
 import SystemController from '../controllers/SystemController'
 import RedisServiceInterface from '../interfaces/RedisServiceInterface'

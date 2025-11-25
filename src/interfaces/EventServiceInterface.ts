@@ -1,4 +1,4 @@
-import { ProcessedEvent, RawEvent } from 'numeri-core'
+import { ProcessedEvent, RawEvent } from '@manuelbent/numeri-core'
 
 /**
  * @interface EventServiceInterface

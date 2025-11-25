@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { LRUCache } from 'lru-cache'
 import { z } from 'zod'
-import { Client } from 'numeri-core'
+import { Client } from '@manuelbent/numeri-core'
 import ClientServiceInterface from '../interfaces/ClientServiceInterface'
 
 /**

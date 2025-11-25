@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import crypto from 'node:crypto'
-import { logger } from 'numeri-core'
+import { logger } from '@manuelbent/numeri-core'
 
 /**
  * @class GenericErrorMiddleware
