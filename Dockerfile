@@ -14,6 +14,7 @@ RUN --mount=type=secret,id=npm_token \
     npm ci && \
     rm -f .npmrc
 
+COPY .env ./
 COPY tsconfig.json ./
 COPY src ./src
 
